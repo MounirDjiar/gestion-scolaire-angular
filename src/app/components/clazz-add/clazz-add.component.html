@@ -1,1 +1,27 @@
-<p>clazz-add works!</p>
+<br>
+<h3 class="text-center">Ajouter une salle de classe</h3>
+<li class="text-center"><a routerLink="/classrooms">Liste des salles de classes</a></li>
+<ul *ngIf="formSubmitted" class="text-md-start">
+  <li *ngIf="Form.controls['name'].errors?.['required']">Veuillez entrer le nom de la classe</li>
+  <li *ngIf="Form.controls['mainTeacher'].errors?.['required']">Veuillez entrer le nom du professeur principal</li>
+</ul>
+<br>
+<form (ngSubmit)="submitForm()" [formGroup]="Form">
+  <div id="clazzName">
+    <label for="name">Nom de la classe</label>
+    <input formControlName="name" id="name" type="text">
+  </div>
+  <br>
+  <div id="clazzMainTeacher">
+    <label for="mainTeacher">Veuillez selectionner le/la professeur(e) principal(e) de cette classe</label>
+    <select formControlName="mainTeacher" id="mainTeacher">
+      <option *ngFor="let teacher of teachers" value="{{teacher.firstName}} {{teacher.lastName}}">{{teacher.firstName}} {{teacher.lastName}}</option>
+    </select>
+  </div>
+  <br>
+  <button type="submit">Send</button>
+</form>
+<pre>
+  {{Form.value | json}}
+</pre>
+Form status: {{Form.valid | json}}

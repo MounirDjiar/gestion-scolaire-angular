@@ -1,0 +1,21 @@
+ul {
+  margin: 20px 500px;
+}
+#btnDelete {
+  margin: 20px 500px;
+}
+#details{
+  border: solid 1px black;
+  padding: 10px 0;
+}
+
+li {
+  list-style: none;
+}
+li a {
+  text-decoration: none;
+}
+li a:hover {
+  background-color: dodgerblue;
+  color: white;
+}
