@@ -9,7 +9,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 })
 export class ScheduleComponent {
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    initialView: 'dayGridWeek',
+    hiddenDays: [0],
     plugins: [dayGridPlugin]
   };
 
