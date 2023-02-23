@@ -1,5 +1,7 @@
+import {Teacher} from "./teacher.model";
+
 export interface Clazz {
   id: number
   name: string
-  mainTeacher: string
+  mainTeacher: Teacher
 }

@@ -1,1 +1,28 @@
-<p>clazz-details works!</p>
+<br>
+<h3 class="text-center">Details de la classe {{clazz?.name}}</h3>
+<li class="text-center"><a routerLink="/clazzs">Liste des classes</a></li>
+<br>
+<div id="details">
+  <h4 class="text-center"> {{clazz?.name}}</h4>
+  <ul>
+    <li><b>Id:</b> {{clazz?.id}}</li>
+    <li><b>Professeur principal:</b> {{clazz?.mainTeacher}}</li>
+  </ul>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Attention</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Voulez-vous vraiment supprimer la classe {{clazz?.name}}
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="DeleteClazz()" class="btn btn-outline-dark" type="button">OUI</button>
+    <button (click)="modal.close('Save click')" class="btn btn-outline-dark" type="button">NON</button>
+  </div>
+</ng-template>
+<button id="btnDelete" (click)="open(content)" class="btn btn-lg btn-outline-dark" type="reset">Supprimer la classe</button>
