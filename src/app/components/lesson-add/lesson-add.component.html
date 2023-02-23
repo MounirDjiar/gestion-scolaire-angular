@@ -1,1 +1,26 @@
-<p>lesson-add works!</p>
+<br>
+<h3 class="text-center">Ajouter une matière</h3>
+<li class="text-center"><a routerLink="/lessons">Liste des matières</a></li>
+<ul *ngIf="formSubmitted" class="text-md-start">
+  <li *ngIf="Form.controls['name'].errors?.['required']">Veuillez entrer le nom de la matière</li>
+  <li *ngIf="Form.controls['color'].errors?.['required']">Veuillez sélectionner une couleur</li>
+</ul>
+<br>
+<form (ngSubmit)="submitForm()" [formGroup]="Form">
+  <div id="lessonName">
+    <label for="name">Nom de la matière</label>
+    <input formControlName="name" id="name" type="text">
+  </div>
+  <br>
+  <div id="lessonColor">
+    <label for="color">Couleur de la matière</label>
+    <input formControlName="color" id="color" type="text">
+  </div>
+  <button type="submit">Send</button>
+</form>
+<pre>
+  {{Form.value | json}}
+</pre>
+Form status: {{Form.valid | json}}
+
+

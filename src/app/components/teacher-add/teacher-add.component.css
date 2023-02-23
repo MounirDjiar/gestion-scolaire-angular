@@ -1,0 +1,48 @@
+ul {
+  color: red;
+  border: solid red 1px;
+  margin: 0 300px;
+  padding-left: 100px;
+}
+li {
+  list-style: none;
+}
+li a:hover {
+  background-color: dodgerblue;
+  color: white;
+}
+
+li a {
+  text-decoration: none;
+}
+form {
+  border: solid 1px black;
+  display: block;
+  padding: 50px;
+  margin: 0 350px;
+}
+
+#classroomName label {
+  padding-right: 20px;
+}
+
+#clasroomExcludedLesson label {
+  padding-bottom: 20px;
+}
+#clasroomExcludedLesson select {
+  display: inline-block;
+  justify-content: space-between;
+  margin: 0px 140px;
+}
+
+#classroomCapacity label {
+  padding-right: 20px;
+}
+
+#classroomCapacity input {
+  width: 100px;
+}
+
+button {
+  margin: 0 200px;
+}
