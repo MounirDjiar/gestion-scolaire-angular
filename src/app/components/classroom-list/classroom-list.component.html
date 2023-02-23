@@ -1,0 +1,24 @@
+<br>
+<h3 class="text-center">Liste des salles de cours</h3>
+<br>
+<li class="text-center"><a routerLink="/classrooms/add">Ajouter une salle de classe</a></li>
+<br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Nom</th>
+    <th>Cours exclus</th>
+    <th>Capacite</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let classroom of classrooms">
+    <td>{{ classroom.id }}</td>
+    <td>{{ classroom.name }}</td>
+    <td>{{ classroom.excludedLesson }}</td>
+    <td>{{ classroom.capacity }}</td>
+   <td><button type="button" class="btn btn-primary" [routerLink]="['/classrooms',classroom.id]">Details</button></td>
+  </tr>
+  </tbody>
+</table>

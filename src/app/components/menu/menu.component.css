@@ -1,0 +1,19 @@
+nav {
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px 50px;
+}
+
+li a {
+  text-decoration: none;
+  color: dodgerblue;
+  padding: 5px 20px;
+}
+
+li :hover {
+  background-color: dodgerblue;
+  color: white;
+}

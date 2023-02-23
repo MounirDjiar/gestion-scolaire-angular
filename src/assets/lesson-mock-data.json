@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "FRANCAIS",
+    "color": "bleu"
+  },
+  {
+    "id": 2,
+    "name": "MATHEMATIQUES",
+    "color": "jaune"
+  },
+  {
+    "id": 3,
+    "name": "ANGLAIS",
+    "color": "green"
+  }
+]

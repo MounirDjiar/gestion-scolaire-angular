@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "6B",
+    "mainTeacher": "John Doe"
+  },
+  {
+    "id": 2,
+    "name": "6A",
+    "mainTeacher": "Jane Smith"
+  },
+  {
+    "id": 3,
+    "name": "6C",
+    "mainTeacher": "Bob Johnson"
+  }
+]

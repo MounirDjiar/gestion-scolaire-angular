@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "B12",
+    "excludedLesson": ["CHEMISTRY", "SPORT"],
+    "capacity": 20
+  },
+  {
+    "id": 2,
+    "name": "B01",
+    "excludedLesson": ["FRENCH", "ENGLISH"],
+    "capacity": 20
+  },
+  {
+    "id": 3,
+    "name": "B05",
+    "excludedLesson": ["MANAGEMENT", "LITERATURE", "SPANISH"],
+    "capacity": 20
+  }
+]

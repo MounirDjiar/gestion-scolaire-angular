@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Albert E",
+    "address": "123 rue de la liberte",
+    "type": "lycee",
+    "phoneNumber": "0876372837",
+    "logo": "url1"
+  },
+  {
+    "id": 2,
+    "name": "Michelle M",
+    "address": "32 rue de l'ete",
+    "type": "college",
+    "phoneNumber": "0876372837",
+    "logo": "url2"
+  },
+  {
+    "id": 3,
+    "name": "Pablo P",
+    "address": "983 rue des gens heureux",
+    "type": "lycee",
+    "phoneNumber": "0876372837",
+    "logo": "url3"
+  }
+]
