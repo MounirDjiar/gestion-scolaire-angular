@@ -3,7 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SchoolParamComponent } from './components/school-param/school-param.component';
+import {SchoolListComponent} from "./components/school-list/school-list.component";
+import {AddSchoolComponent} from "./components/add-school/add-school.component";
+import {SchoolComponent} from "./components/school/school.component";
+import {SchoolDetailsComponent} from "./components/school-details/school-details.component";
 import { HomeComponent } from './components/home/home.component';
 import { ClazzListComponent } from './components/clazz-list/clazz-list.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -22,6 +25,7 @@ import { TeacherAddComponent } from './components/teacher-add/teacher-add.compon
 import { LessonListComponent } from './components/lesson-list/lesson-list.component';
 import { LessonAddComponent } from './components/lesson-add/lesson-add.component';
 import { LessonDetailsComponent } from './components/lesson-details/lesson-details.component';
+import {SchoolType} from "../services/school-type";
 
 const routes: Routes = [
   {path: 'classrooms', component: ClassroomListComponent},
@@ -37,7 +41,9 @@ const routes: Routes = [
   {path: 'lessons', component: LessonListComponent},
   {path: 'lessons/add', component: LessonAddComponent},
   {path: 'lessons/:id', component: LessonDetailsComponent},
-  {path: 'school', component: SchoolParamComponent},
+  {path: 'schools', component: SchoolListComponent},
+  {path: 'schools/add', component: AddSchoolComponent},
+  {path: 'schools/:id', component: SchoolDetailsComponent},
   {path: 'home', component: HomeComponent},
   {path: '', redirectTo: 'home', pathMatch: "full"}
 ]
@@ -45,7 +51,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SchoolParamComponent,
     HomeComponent,
     ClazzListComponent,
     ClassroomAddComponent,
@@ -61,6 +66,10 @@ const routes: Routes = [
     LessonListComponent,
     LessonAddComponent,
     LessonDetailsComponent,
+    AddSchoolComponent,
+    SchoolListComponent,
+    SchoolDetailsComponent,
+    SchoolComponent
   ],
   imports: [
     BrowserModule,

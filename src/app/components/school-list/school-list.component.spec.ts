@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SchoolParamComponent } from './school-param.component';
+import { SchoolListComponent } from './school-list.component';
 
-describe('SchoolParamComponent', () => {
-  let component: SchoolParamComponent;
-  let fixture: ComponentFixture<SchoolParamComponent>;
+describe('SchoolListComponent', () => {
+  let component: SchoolListComponent;
+  let fixture: ComponentFixture<SchoolListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SchoolParamComponent ]
+      declarations: [ SchoolListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SchoolParamComponent);
+    fixture = TestBed.createComponent(SchoolListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

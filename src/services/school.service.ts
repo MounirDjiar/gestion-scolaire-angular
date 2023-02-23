@@ -2,31 +2,34 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {School} from "../models/school.model";
-import {environment} from "../environments/environment.development";
+
 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SchoolService {
 
-  private apiUrl = environment.production ? environment.apiUrl+'/schools' : environment.schoolMock;
+  url: string = 'http://localhost:8087/gestionscolaire/schools';
 
-  constructor(private httpSchool: HttpClient) { }
-
-  add(value: School): Observable<School> {
-    return this.httpSchool.post<School>(`${this.apiUrl}`, value)
+  constructor(private http: HttpClient) {
   }
 
-  delete(id: number): Observable<void> {
-    return this.httpSchool.delete<void>(`${this.apiUrl}/${id}`)
+  public findAll(): Observable<School[]> {
+    return this.http.get<School[]>(this.url);
   }
 
-  getAll(): Observable<School[]> {
-    return this.httpSchool.get<School[]>(this.apiUrl);
+  public findById(id: number): Observable<School> {
+    return this.http.get<School>(`${this.url}/${id}`);
   }
 
-  getOne(id: number): Observable<School> {
-    return this.httpSchool.get<School>(`${this.apiUrl}/${id}`);
+  public addSchool(value: School): Observable<School> {
+    return this.http.post<School>(this.url, value);
   }
+
+  public deleteSchool(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
+
 }

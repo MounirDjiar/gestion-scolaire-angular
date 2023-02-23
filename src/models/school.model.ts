@@ -1,8 +1,10 @@
+import {SchoolType} from "../services/school-type";
+
 export interface School {
   id: number
   name: string
   address: string
-  type: string
+  schoolType: SchoolType
   phoneNumber: string
   logo:string
 }

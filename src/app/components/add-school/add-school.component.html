@@ -1,0 +1,44 @@
+<h1>Ajout d'un établissement</h1>
+
+<!-- VALIDATION ERRORS -->
+<ul *ngIf="formAlreadySubmitted === true">
+  <li *ngIf="formGroup.controls['name'].errors?.['required']">Vous devez saisir un nom d'établissement</li>
+  <li *ngIf="formGroup.controls['address'].errors?.['required']">Vous devez saisir une adresse</li>
+  <li *ngIf="formGroup.controls['schoolType'].errors?.['required']">Vous devez choisir un type d'établissement</li>
+  <li *ngIf="formGroup.controls['phoneNumber'].errors?.['required']">Vous devez saisir un numéro de téléphone</li>
+</ul>
+
+<form [formGroup]="formGroup" (ngSubmit)="submitFormAddSchool()">
+  <div>
+    <label for="name">Nom de l'établissement:</label>
+    <input type="text" id="name" formControlName="name">
+  </div>
+
+  <div>
+    <label for="address">Adresse:</label>
+    <input type="text" id="address" formControlName="address">
+  </div>
+
+  <div>
+    <select id="schoolType" formControlName="schoolType">
+      <option *ngFor="let schoolType of schoolTypes" [value]="schoolType">{{schoolType}}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="phoneNumber">Numéro de téléphone:</label>
+    <input type="text" id="phoneNumber" formControlName="phoneNumber">
+  </div>
+
+  <div>
+    <label for="logo">Logo:</label>
+    <input type="text" id="logo" formControlName="logo">
+  </div>
+
+  <button type="submit">Ajouter</button>
+</form>
+
+<pre>
+  {{formGroup.value|json}}
+  {{formGroup.valid|json}}
+</pre>
