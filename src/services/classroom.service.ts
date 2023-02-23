@@ -4,10 +4,6 @@ import {Observable} from "rxjs";
 import {Classroom} from "../models/classroom.model";
 import {environment} from "../environments/environment.development";
 
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })

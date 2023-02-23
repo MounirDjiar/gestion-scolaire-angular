@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment.development";
 import {Clazz} from "../../../models/clazz.model";
 import {ClazzService} from "../../../services/clazz.service";
@@ -19,13 +19,20 @@ export class ClazzAddComponent implements OnInit {
   teachers: Teacher[] = []
   mainTeacher!: Teacher
   clazz!: Clazz
+  schoolID! : string
 
   constructor(private formBuilder: FormBuilder,
               private clazzService: ClazzService,
               private teacherService: TeacherService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute
+    ){
   }
   ngOnInit(): void {
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
     this.Form = this.formBuilder.group({
       name: [null, Validators.required],
       mainTeacher: [[],Validators.required],

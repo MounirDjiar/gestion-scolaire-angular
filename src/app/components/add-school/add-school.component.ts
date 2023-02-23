@@ -36,7 +36,7 @@ export class AddSchoolComponent implements OnInit {
     });
 
     // Set default values in the select
-    this.formGroup.get('schoolType')?.setValue(SchoolType.COLLEGE);
+    this.formGroup.get('schoolType')?.setValue(SchoolType.ECOLE);
   }
 
   // Called when the form has been submitted

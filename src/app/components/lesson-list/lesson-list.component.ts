@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {LessonService} from "../../../services/lesson.service";
 import {Lesson} from "../../../models/lesson.model";
+import {ActivatedRoute} from "@angular/router";
+import {SchoolService} from "../../../services/school.service";
 
 @Component({
   selector: 'app-lesson-list',
@@ -9,11 +11,23 @@ import {Lesson} from "../../../models/lesson.model";
 })
 export class LessonListComponent implements OnInit {
   lessons : Lesson[] = []
+  schoolID!:string;
 
-  constructor(private lessonService: LessonService) {
+  constructor(
+        private lessonService: LessonService,
+        private schoolService: SchoolService,
+        private activatedRoute: ActivatedRoute
+      ){
   }
+
   ngOnInit(): void {
-    this.lessonService.getAll()
-      .subscribe(value => this.lessons = value)
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
+    this.schoolService.findLessonsBySchoolId(Number(this.schoolID)).subscribe(
+      lessonsList => {
+        this.lessons = lessonsList;
+      });
   }
 }

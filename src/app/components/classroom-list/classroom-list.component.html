@@ -1,7 +1,8 @@
+<app-menu [schoolID]="schoolID"></app-menu>
 <br>
 <h3 class="text-center">Liste des salles de cours</h3>
 <br>
-<li class="text-center"><a routerLink="/classrooms/add">Ajouter une salle de classe</a></li>
+<li class="text-center"><a [routerLink]="['/schools/',schoolID,'classrooms','add']">Ajouter une salle de classe</a></li>
 <br>
 <table class="table table-striped">
   <thead>
@@ -18,7 +19,7 @@
     <td>{{ classroom.name }}</td>
     <td>{{ classroom.excludedLesson }}</td>
     <td>{{ classroom.capacity }}</td>
-   <td><button type="button" class="btn btn-primary" [routerLink]="['/classrooms',classroom.id]">Details</button></td>
+   <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'classrooms',classroom.id]">Details</button></td>
   </tr>
   </tbody>
 </table>

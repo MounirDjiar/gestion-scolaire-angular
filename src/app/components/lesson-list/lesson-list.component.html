@@ -1,7 +1,8 @@
+<app-menu [schoolID]="schoolID"></app-menu>
 <br>
 <h3 class="text-center">Liste des matieres</h3>
 <br>
-<li class="text-center"><a routerLink="/lessons/add">Ajouter une matiere</a></li>
+<li class="text-center"><a [routerLink]="['/schools/',schoolID,'lessons','add']">Ajouter une matiere</a></li>
 <br>
 <table class="table table-striped">
   <thead>
@@ -16,6 +17,6 @@
     <td>{{ lesson.id }}</td>
     <td>{{ lesson.name }}</td>
     <td>{{ lesson.color }}</td>
-    <td><button type="button" class="btn btn-primary" [routerLink]="['/lessons',lesson.id]">Details</button></td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'lessons',lesson.id]">Details</button></td>
   </tbody>
 </table>

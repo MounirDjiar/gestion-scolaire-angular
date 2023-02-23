@@ -1,14 +1,15 @@
+<app-menu [schoolID]="(school.id).toString()"></app-menu>
 <br>
-<h3 class="text-center">{{school?.name | uppercase}}</h3>
+<h3 class="text-center">{{school.name | uppercase}}</h3>
 <br>
 <div id="details">
-  <h4 class="text-center"> {{school?.name}}</h4>
+  <h4 class="text-center"> {{school.name}}</h4>
   <ul>
-    <li><b>Id:</b> {{school?.id}}</li>
-    <li><b>Adresse:</b> {{school?.address}}</li>
-    <li><b>Type d'établissement:</b> {{school?.schoolType}}</li>
-    <li><b>Numéro de téléphone:</b> {{school?.phoneNumber}}</li>
-    <li><img src="{{school?.logo}}"></li>
+    <li><b>Id:</b> {{school.id}}</li>
+    <li><b>Adresse:</b> {{school.address}}</li>
+    <li><b>Type d'établissement:</b> {{school.schoolType}}</li>
+    <li><b>Numéro de téléphone:</b> {{school.phoneNumber}}</li>
+    <li><img src="{{school.logo}}"></li>
   </ul>
   <ul>
     <li class="text-center"><b>Nombre de professeurs:</b> {{teachersList.length}}</li>

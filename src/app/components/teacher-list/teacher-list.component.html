@@ -1,7 +1,8 @@
+<app-menu [schoolID]="schoolID"></app-menu>
 <br>
 <h3 class="text-center">Liste des professeurs</h3>
 <br>
-<li class="text-center"><a routerLink="/teachers/add">Ajouter un(e) professeur(e)</a></li>
+<li class="text-center"><a [routerLink]="['/schools/', schoolID, 'teachers', 'add']">Ajouter un(e) professeur(e)</a></li>
 <br>
 <table class="table table-striped">
   <thead>
@@ -20,7 +21,7 @@
     <td>{{ teacher.lastName }}</td>
     <td>{{ teacher.dob }}</td>
     <td>{{ teacher.lessons }}</td>
-    <td><button type="button" class="btn btn-primary" [routerLink]="['/teachers',teacher.id]">Details</button></td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Details</button></td>
   </tr>
   </tbody>
 </table>

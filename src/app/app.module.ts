@@ -29,22 +29,33 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 const routes: Routes = [
-  {path: 'classrooms', component: ClassroomListComponent},
-  {path: 'classrooms/add', component: ClassroomAddComponent},
-  {path: 'classrooms/:id', component: ClassroomDetailsComponent},
-  {path: 'clazzs', component: ClazzListComponent},
-  {path: 'clazzs/add', component: ClazzAddComponent},
-  {path: 'clazzs/:id', component: ClazzDetailsComponent},
-  {path: 'clazzs/:id/schedule', component: ScheduleComponent},
-  {path: 'teachers', component: TeacherListComponent},
-  {path: 'teachers/add', component: TeacherAddComponent},
-  {path: 'teachers/:id', component: TeacherDetailsComponent},
-  {path: 'lessons', component: LessonListComponent},
-  {path: 'lessons/add', component: LessonAddComponent},
-  {path: 'lessons/:id', component: LessonDetailsComponent},
+
+  // SCHOOLS
   {path: 'schools', component: SchoolListComponent},
   {path: 'schools/add', component: AddSchoolComponent},
   {path: 'schools/:id', component: SchoolDetailsComponent},
+
+  // LESSONS
+  {path: 'schools/:schoolId/lessons', component: LessonListComponent},
+  {path: 'schools/:schoolId/lessons/add', component: LessonAddComponent},
+  {path: 'schools/:schoolId/lessons/:id', component: LessonDetailsComponent},
+
+  //CLASSROOMS
+  {path: 'schools/:schoolId/classrooms', component: ClassroomListComponent},
+  {path: 'schools/:schoolId/classrooms/add', component: ClassroomAddComponent},
+  {path: 'schools/:schoolId/classrooms/:id', component: ClassroomDetailsComponent},
+
+  //CLAZZS
+  {path: 'schools/:schoolId/clazzs', component: ClazzListComponent},
+  {path: 'schools/:schoolId/clazzs/add', component: ClazzAddComponent},
+  {path: 'schools/:schoolId/clazzs/:id', component: ClazzDetailsComponent},
+  {path: 'schools/:schoolId/clazzs/:id/schedule', component: ScheduleComponent},
+
+  // TEACHERS
+  {path: 'schools/:schoolId/teachers', component: TeacherListComponent},
+  {path: 'schools/:schoolId/teachers/add', component: TeacherAddComponent},
+  {path: 'schools/:schoolId/teachers/:id', component: TeacherDetailsComponent},
+
   {path: 'home', component: HomeComponent},
   {path: '', redirectTo: 'home', pathMatch: "full"}
 ]
