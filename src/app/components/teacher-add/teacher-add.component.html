@@ -1,1 +1,43 @@
-<p>teacher-add works!</p>
+<br>
+<h3 class="text-center">Ajouter un professeur</h3>
+<li class="text-center"><a routerLink="/classrooms">Liste des professeurs</a></li>
+<ul *ngIf="formSubmitted" class="text-md-start">
+  <li *ngIf="Form.controls['firstName'].errors?.['required']">Veuillez entrer le prénom du professeur</li>
+  <li *ngIf="Form.controls['lastName'].errors?.['required']">Veuillez entrer le nom du professeur</li>
+  <li *ngIf="Form.controls['dob'].errors?.['required']">Veuillez sélectionner la date de naissance</li>
+  <li *ngIf="Form.controls['lessons'].errors?.['required']">Veuillez sélectionner les matières enseignées par le professeur</li>
+  <li *ngIf="Form.controls['lessons'].errors?.['min']">Le nombre de matières enseignées doit être compris entre 1 et 3</li>
+  <li *ngIf="Form.controls['lessons'].errors?.['max']">Le nombre de matières enseignées doit être compris entre 1 et 3</li>
+</ul>
+<br>
+<form (ngSubmit)="submitForm()" [formGroup]="Form">
+  <div id="teacherFirstName">
+    <label for="firstName">Prénom du professeur</label>
+    <input formControlName="firstName" id="firstName" type="text">
+  </div>
+  <br>
+  <div id="teacherLastName">
+    <label for="lastName">Nom du professeur</label>
+    <input formControlName="lastName" id="lastName" type="text">
+  </div>
+  <br>
+  <div id="teacherDob">
+    <label for="dob">Date de naissance</label>
+    <input formControlName="dob" id="dob" type="text">
+  </div>
+  <br>
+  <div id="teacherLessons">
+    <label>Veuillez selectionner les matières enseignées</label>
+    <br>
+    <select multiple formControlName="lessons" >
+      <option *ngFor="let lesson of lessons" value="{{lesson.name}}"> {{lesson.name}}</option>
+    </select>
+  </div>
+  <br>
+  <button type="submit">Send</button>
+</form>
+<pre>
+  {{Form.value | json}}
+</pre>
+Form status: {{Form.valid | json}}
+

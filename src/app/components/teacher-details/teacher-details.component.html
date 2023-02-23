@@ -1,1 +1,31 @@
-<p>teacher-details works!</p>
+<br>
+<h3 class="text-center">Details du professeur {{teacher?.lastName}}</h3>
+<li class="text-center"><a routerLink="/teachers">Liste des professeurs</a></li>
+<br>
+<div id="details">
+  <h4 class="text-center"> Monsieur/Madame{{teacher?.lastName}}</h4>
+  <ul>
+    <li><b>Id:</b> {{teacher?.id}}</li>
+    <li><b>Prénom :</b> {{teacher?.firstName}}</li>
+    <li><b>Nom :</b> {{teacher?.lastName}}</li>
+    <li><b>Date de naissance :</b> {{teacher?.dob}}</li>
+    <li><b>Matieres enseignées :</b> {{teacher?.lessons}}</li>
+  </ul>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Attention</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        Voulez-vous vraiment supprimer le professeur ?{{teacher?.lastName}}
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="DeleteTeacher()" class="btn btn-outline-dark" type="button">OUI</button>
+    <button (click)="modal.close('Save click')" class="btn btn-outline-dark" type="button">NON</button>
+  </div>
+</ng-template>
+<button id="btnDelete" (click)="open(content)" class="btn btn-lg btn-outline-dark" type="reset">Supprimer le professeur</button>
