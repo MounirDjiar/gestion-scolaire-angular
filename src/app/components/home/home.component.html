@@ -1,1 +1,16 @@
-<h1>Welcome</h1>
+<br>
+<h3 class="text-center">Veuillez saisir un établissement</h3>
+<br>
+
+<form [formGroup]="formGroup" (ngSubmit)="submitFormSelectSchool()">
+  <br>
+  <div id="schools">
+    <label>Veuillez selectionner un établissement</label>
+    <select formControlName="schoolId" >
+      <option *ngFor="let school of schoolsList" value="{{school?.id}}"> {{school?.name}}</option>
+    </select>
+  </div>
+  <br>
+  <br>
+  <button type="submit">Gérer</button>
+</form>

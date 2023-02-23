@@ -1,0 +1,21 @@
+form {
+  border: solid 1px black;
+  display: block;
+  padding: 50px;
+  margin: 0 350px;
+  text-align: center;
+}
+
+#schools label {
+  padding-bottom: 20px;
+}
+#schools select {
+  display: inline-block;
+  justify-content: space-between;
+  margin: 0px 140px;
+  width: 200px;
+}
+
+button {
+  margin: 0 200px;
+}
