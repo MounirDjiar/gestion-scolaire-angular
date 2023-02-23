@@ -22,6 +22,8 @@ import { TeacherAddComponent } from './components/teacher-add/teacher-add.compon
 import { LessonListComponent } from './components/lesson-list/lesson-list.component';
 import { LessonAddComponent } from './components/lesson-add/lesson-add.component';
 import { LessonDetailsComponent } from './components/lesson-details/lesson-details.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 
 const routes: Routes = [
   {path: 'classrooms', component: ClassroomListComponent},
@@ -68,6 +70,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FullCalendarModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
