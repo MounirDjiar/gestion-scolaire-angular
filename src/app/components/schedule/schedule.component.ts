@@ -11,7 +11,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 export class ScheduleComponent {
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
-    titleFormat: { year: 'numeric', month: 'short', day: 'numeric', weekday: 'short' },
+    titleFormat: {  weekday: 'short' },
+    hiddenDays: [0],
     slotDuration: '01:00:00',
     slotLabelInterval: '01:00:00',
     slotLabelFormat: { hour: 'numeric', minute: '2-digit', hour12: true },
