@@ -26,6 +26,8 @@ import { LessonListComponent } from './components/lesson-list/lesson-list.compon
 import { LessonAddComponent } from './components/lesson-add/lesson-add.component';
 import { LessonDetailsComponent } from './components/lesson-details/lesson-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
 
 
 const routes: Routes = [
@@ -81,7 +83,8 @@ const routes: Routes = [
     AddSchoolComponent,
     SchoolListComponent,
     SchoolDetailsComponent,
-    SchoolComponent
+    SchoolComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     FullCalendarModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

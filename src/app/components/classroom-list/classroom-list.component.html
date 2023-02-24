@@ -17,9 +17,10 @@
   <tr *ngFor="let classroom of classrooms">
     <td>{{ classroom.id }}</td>
     <td>{{ classroom.name }}</td>
-    <td>{{ classroom.excludedLesson }}</td>
+    <td>{{ classroom.excludedLessons }}</td>
     <td>{{ classroom.capacity }}</td>
    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'classrooms',classroom.id]">Details</button></td>
   </tr>
   </tbody>
 </table>
+<button type="button" class="btn btn-secondary" (click)="generatePdf()">Télécharger en PDF</button>

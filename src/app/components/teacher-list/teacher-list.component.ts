@@ -5,6 +5,7 @@ import {Teacher} from "../../../models/teacher.model";
 import {TeacherService} from "../../../services/teacher.service";
 import {ActivatedRoute} from "@angular/router";
 import {SchoolService} from "../../../services/school.service";
+import { PdfGeneratorService } from "../../../services/pdf-generator.service";
 
 @Component({
   selector: 'app-teacher-list',
@@ -17,8 +18,9 @@ export class TeacherListComponent implements OnInit {
 
   constructor(
       private schoolService: SchoolService,
-      private activatedRoute: ActivatedRoute
-    ){
+      private activatedRoute: ActivatedRoute,
+      private pdfGeneratorService: PdfGeneratorService
+  ){
   }
   ngOnInit(): void {
 
@@ -30,4 +32,12 @@ export class TeacherListComponent implements OnInit {
         this.teachers = teachers;
       });
   }
+
+  generatePdf() {
+    const headers = ['Prenom', 'Nom', 'Date de naissance', 'Matieres enseignées'];
+    const data = this.teachers.map(({firstName, lastName, dob, lessons }) => ({ firstName, lastName, dob, lessons }));
+    const fileName = 'liste-des-professeurs';
+    this.pdfGeneratorService.generatePDF(data, headers, fileName);
+  }
+
 }
