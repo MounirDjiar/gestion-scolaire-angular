@@ -13,8 +13,8 @@ import {environment} from "../../../environments/environment.development";
 export class ClassroomDetailsComponent implements OnInit {
 
   classroom!: Classroom
-
   currentModal: NgbModalRef | undefined
+  schoolID! : string
 
   constructor(private modalService: NgbModal,
               private activatedRoute: ActivatedRoute,
@@ -34,6 +34,10 @@ export class ClassroomDetailsComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
     const id = this.activatedRoute.snapshot.paramMap.get('id')
     if (id) {
       this.classroomService.getOne(Number(id)).subscribe(clsrm => this.classroom = clsrm)

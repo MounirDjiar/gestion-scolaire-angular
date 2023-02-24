@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Lesson} from "../../../models/lesson.model";
 import {LessonService} from "../../../services/lesson.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment.development";
 
 
@@ -16,23 +16,25 @@ export class LessonAddComponent implements OnInit {
   Form!: FormGroup
   formSubmitted = false
   lesson!: Lesson
-  lessons: Lesson[] = []
-
-
+  schoolID! : string
 
   constructor(private formBuilder: FormBuilder,
               private lessonService: LessonService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute
+    ){
   }
   ngOnInit(): void {
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
     this.Form = this.formBuilder.group({
-      name: [null, Validators.required],
-      color: [null, Validators.required],
-    })
-    this.lessonService.getAll().subscribe(lesson => {
-      this.lessons = lesson
-      // if (lesson.length > 0)
-      //   this.Form.get('lesson')?.get('id')?.setValue(lesson[0].id)
+      name: ['', Validators.required],
+      color: ['', Validators.required],
+      school: this.formBuilder.group({
+        id: this.schoolID
+      })
     })
   }
   submitForm() {
@@ -40,11 +42,12 @@ export class LessonAddComponent implements OnInit {
     if (this.Form.valid) {
       if (environment.production) {
         this.lessonService.add(this.Form.value).subscribe(() => {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl(`/schools/${this.schoolID}/lessons`);
         });
       } else {
         console.log('Form data:', this.Form.value);
       }
-    }    }
+    }
+  }
 }
 

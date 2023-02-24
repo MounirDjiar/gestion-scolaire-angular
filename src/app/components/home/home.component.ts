@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.formGroup = this.fb.group({
-      'schoolId': Number
+      'schoolId': ''
     });
 
     // Get the schools list

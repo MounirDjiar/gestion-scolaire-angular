@@ -15,8 +15,8 @@ import {ClazzService} from "../../../services/clazz.service";
 export class ClazzDetailsComponent implements OnInit {
 
   clazz!: Clazz
-
   currentModal: NgbModalRef | undefined
+  schoolID! : string
 
   constructor(private modalService: NgbModal,
               private activatedRoute: ActivatedRoute,
@@ -36,6 +36,10 @@ export class ClazzDetailsComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
     const id = this.activatedRoute.snapshot.paramMap.get('id')
     if (id) {
       this.clazzService.getOne(Number(id)).subscribe(clazz => this.clazz = clazz)

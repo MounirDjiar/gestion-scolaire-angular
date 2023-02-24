@@ -4,7 +4,7 @@ import {Classroom} from "../../../models/classroom.model";
 import {Lesson} from "../../../models/lesson.model";
 import {ClassroomService} from "../../../services/classroom.service";
 import {LessonService} from "../../../services/lesson.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment.development";
 import {Teacher} from "../../../models/teacher.model";
 import {TeacherService} from "../../../services/teacher.service";
@@ -18,18 +18,23 @@ export class TeacherAddComponent implements OnInit {
 
   Form!: FormGroup
   formSubmitted = false
-
   teachers: Teacher[] = []
-
   lessons: Lesson[] = []
   teacher!: Teacher
+  schoolID! : string
 
   constructor(private formBuilder: FormBuilder,
               private teacherService: TeacherService,
               private lessonService: LessonService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute
+      ) {
   }
   ngOnInit(): void {
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
     this.Form = this.formBuilder.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],

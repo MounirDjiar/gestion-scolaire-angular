@@ -12,7 +12,8 @@ import {Lesson} from "../../../models/lesson.model";
 })
 export class LessonDetailsComponent implements OnInit {
 
-  lesson!: Lesson
+  lesson: Lesson | undefined;
+  schoolID! : string
 
   currentModal: NgbModalRef | undefined
 
@@ -22,9 +23,21 @@ export class LessonDetailsComponent implements OnInit {
               private router: Router) {
   }
 
+  ngOnInit(): void {
+
+    // Get school id from url
+    this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
+
+    const id = this.activatedRoute.snapshot.paramMap.get('id')
+    if (id) {
+      this.lessonService.getOne(Number(id)).subscribe(l => this.lesson = l)
+    }
+    console.log(id)
+  }
+
   DeleteLesson() {
     if (environment.production) {
-      this.lessonService.delete(this.lesson.id)
+      this.lessonService.delete(this.lesson!.id)
         .subscribe(value => {
           this.currentModal?.close()
           this.router.navigateByUrl('/lessons')
@@ -32,13 +45,6 @@ export class LessonDetailsComponent implements OnInit {
     } else {
       console.log('lesson deleted !');
     }
-  }
-  ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.paramMap.get('id')
-    if (id) {
-      this.lessonService.getOne(Number(id)).subscribe(l => this.lesson = l)
-    }
-    console.log(id)
   }
 
   open(content: any) {
