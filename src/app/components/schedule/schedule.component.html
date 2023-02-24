@@ -1,2 +1,6 @@
-
-<full-calendar [options]="calendarOptions"></full-calendar>
+<app-menu [schoolID]="schoolID"></app-menu>
+<p> Classe 6ème B (TODO : Rajouter la dépendances pour afficher la bonne classe d'élèves)</p>
+<full-calendar #calendar
+               [options]="calendarOptions"
+               (select)="handleSelect($event)">
+</full-calendar>
