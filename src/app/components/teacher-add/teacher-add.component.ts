@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment.development";
 import {Teacher} from "../../../models/teacher.model";
 import {TeacherService} from "../../../services/teacher.service";
+import {SchoolService} from "../../../services/school.service";
 
 @Component({
   selector: 'app-teacher-add',
@@ -25,7 +26,7 @@ export class TeacherAddComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private teacherService: TeacherService,
-              private lessonService: LessonService,
+              private schoolService: SchoolService,
               private router: Router,
               private activatedRoute: ActivatedRoute
       ) {
@@ -36,23 +37,29 @@ export class TeacherAddComponent implements OnInit {
     this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
 
     this.Form = this.formBuilder.group({
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required],
-      dob: [null, Validators.required],
-      lessons: [null, [Validators.required, Validators.min(1), Validators.max(3)]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      dob: ['', Validators.required],
+      lessons: this.formBuilder.group({
+        id: ''
+      }),
+      school: this.formBuilder.group({
+        id: this.schoolID
+      })
     })
-    this.lessonService.getAll().subscribe(lesson => {
-      this.lessons = lesson
-      // if (lesson.length > 0)
-      //   this.Form.get('lesson')?.get('id')?.setValue(lesson[0].id)
-    })
+
+    this.schoolService.findLessonsBySchoolId(Number(this.schoolID)).subscribe(
+      lessons => {
+        this.lessons = lessons;
+      });
+
   }
   submitForm() {
     this.formSubmitted = true
     if (this.Form.valid) {
       if (environment.production) {
         this.teacherService.add(this.Form.value).subscribe(() => {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl(`/schools/${this.schoolID}/teachers`);
         });
       } else {
         console.log('Form data:', this.Form.value);

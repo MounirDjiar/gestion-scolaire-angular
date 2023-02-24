@@ -1,6 +1,8 @@
+import {Lesson} from "./lesson.model";
+
 export interface Classroom {
   id: number
   name: string
-  excludedLesson: string[]
+  excludedLessons: Lesson[]
   capacity: number
 }

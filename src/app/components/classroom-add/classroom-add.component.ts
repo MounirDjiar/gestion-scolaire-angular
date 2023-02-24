@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Classroom} from "../../../models/classroom.model";
 import {Lesson} from "../../../models/lesson.model";
 import {ClassroomService} from "../../../services/classroom.service";
@@ -36,17 +36,27 @@ export class ClassroomAddComponent implements OnInit {
 
     this.Form = this.formBuilder.group({
       name: ['', Validators.required],
-      excludedLesson: [],
       capacity: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      excludedLessons: this.formBuilder.array([
+        this.formBuilder.group({
+          id: ''
+        })
+      ]),
       school: this.formBuilder.group({
         id: this.schoolID
       })
     })
+
     this.schoolService.findLessonsBySchoolId(Number(this.schoolID)).subscribe(
       lessonsList => {
         this.lessons = lessonsList;
       });
   }
+
+  get selectedLesson(): FormArray {
+    return this.Form.get('excludedLessons') as FormArray;
+  }
+
   submitForm() {
     this.formSubmitted = true
     if (this.Form.valid) {

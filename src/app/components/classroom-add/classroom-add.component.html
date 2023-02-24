@@ -15,12 +15,17 @@
     <input formControlName="name" id="name" type="text">
   </div>
   <br>
-  <div id="clasroomExcludedLesson">
-    <label>Veuillez selectionner les cours a exclure de cette salle de cours</label>
-    <select multiple formControlName="excludedLesson" >
-    <option *ngFor="let lesson of lessons" value="{{lesson.name}}"> {{lesson.name}}</option>
-    </select>
+
+  <div formArrayName="excludedLessons">
+    <div *ngFor="let l of selectedLesson.controls; let i = index"[formGroupName]="i">
+      <label for="lessonId">Veuillez selectionner les cours a exclure de cette salle de cours</label>
+      <select multiple formControlName="id" id="lessonId">
+        <option *ngFor="let lesson of lessons" [value]="lesson.id">{{lesson.name}}</option>
+      </select>
+    </div>
   </div>
+
+
   <br>
   <div id="classroomCapacity">
     <label for="capacity">Capacite de la salle de cours</label>

@@ -13,10 +13,11 @@
     <input formControlName="name" id="name" type="text">
   </div>
   <br>
-  <div id="clazzMainTeacher">
+
+  <div id="clazzMainTeacher" formGroupName="mainTeacher">
     <label for="mainTeacher">Veuillez selectionner le/la professeur(e) principal(e) de cette classe</label>
-    <select formControlName="mainTeacher" id="mainTeacher">
-      <option *ngFor="let teacher of teachers" value="{{teacher.firstName}} {{teacher.lastName}}">{{teacher.firstName}} {{teacher.lastName}}</option>
+    <select formControlName="id" id="mainTeacher">
+      <option *ngFor="let teacher of teachers" value="{{teacher.id}}">{{teacher.firstName}} {{teacher.lastName}}</option>
     </select>
   </div>
   <br>
