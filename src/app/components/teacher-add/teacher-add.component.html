@@ -23,11 +23,9 @@
   </div>
   <br>
   <div id="teacherDob">
-    <label for="dob">Date de naissance</label>
-    <input matInput [matDatepicker]="picker" formControlName="dob" id="dob">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <input [matDatepicker]="basicDatepicker">
+    <mat-datepicker-toggle [for]="basicDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #basicDatepicker></mat-datepicker>
   </div>
   <br>
   <div id="teacherLessons">

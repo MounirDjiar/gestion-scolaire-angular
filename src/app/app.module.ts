@@ -28,6 +28,7 @@ import { LessonDetailsComponent } from './components/lesson-details/lesson-detai
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 const routes: Routes = [
@@ -57,6 +58,7 @@ const routes: Routes = [
   {path: 'schools/:schoolId/teachers', component: TeacherListComponent},
   {path: 'schools/:schoolId/teachers/add', component: TeacherAddComponent},
   {path: 'schools/:schoolId/teachers/:id', component: TeacherDetailsComponent},
+  {path: 'schools/:schoolId/teachers/:id/schedule', component: ScheduleComponent},
 
   {path: 'home', component: HomeComponent},
   {path: '', redirectTo: 'home', pathMatch: "full"}
@@ -95,10 +97,12 @@ const routes: Routes = [
     FullCalendarModule,
     RouterModule.forRoot(routes),
     MatDatepickerModule,
-    MatDatepickerModule,
-    MatInputModule
+    MatInputModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
