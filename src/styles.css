@@ -2,3 +2,6 @@ body {
   width: 1400px;
   margin: 20px auto;
 }
+
+/* Add application styles & imports to this file! */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';

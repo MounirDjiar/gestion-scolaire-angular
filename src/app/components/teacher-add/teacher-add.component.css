@@ -1,3 +1,16 @@
+.datepickerOne {
+  background: lightgray;
+}
+
+.datepickerOne .mat-calendar-body-today:not(.mat-calendar-body-selected){
+  border-color: gray;
+}
+
+.mat-datepicker-content .datepickerOne.mat-calendar {
+  width: 200px;
+  height: auto;
+}
+
 ul {
   color: red;
   border: solid red 1px;

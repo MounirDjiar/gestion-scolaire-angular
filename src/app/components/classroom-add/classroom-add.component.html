@@ -17,7 +17,7 @@
   <br>
 
   <div formArrayName="excludedLessons">
-    <div *ngFor="let l of selectedLesson.controls; let i = index"[formGroupName]="i">
+    <div *ngFor="let l of excludedLesson.controls; let i = index" [formGroupName]="i">
       <label for="lessonId">Veuillez selectionner les cours a exclure de cette salle de cours</label>
       <select multiple formControlName="id" id="lessonId">
         <option *ngFor="let lesson of lessons" [value]="lesson.id">{{lesson.name}}</option>

@@ -3,43 +3,66 @@
 <h3 class="text-center">Ajouter un professeur</h3>
 <li class="text-center"><a [routerLink]="['/schools/', schoolID, 'teachers']">Liste des professeurs</a></li>
 <ul *ngIf="formSubmitted" class="text-md-start">
-  <li *ngIf="Form.controls['firstName'].errors?.['required']">Veuillez entrer le prénom du professeur</li>
-  <li *ngIf="Form.controls['lastName'].errors?.['required']">Veuillez entrer le nom du professeur</li>
-  <li *ngIf="Form.controls['dob'].errors?.['required']">Veuillez sélectionner la date de naissance</li>
+  <li *ngIf="form.controls['firstName'].errors?.['required']">Veuillez entrer le prénom du professeur</li>
+  <li *ngIf="form.controls['lastName'].errors?.['required']">Veuillez entrer le nom du professeur</li>
+  <li *ngIf="form.controls['dob'].errors?.['required']">Veuillez sélectionner la date de naissance</li>
+  <!--
   <li *ngIf="Form.controls['lessons'].errors?.['required']">Veuillez sélectionner les matières enseignées par le professeur</li>
   <li *ngIf="Form.controls['lessons'].errors?.['min']">Le nombre de matières enseignées doit être compris entre 1 et 3</li>
   <li *ngIf="Form.controls['lessons'].errors?.['max']">Le nombre de matières enseignées doit être compris entre 1 et 3</li>
+  -->
 </ul>
 <br>
-<form (ngSubmit)="submitForm()" [formGroup]="Form">
+<form (ngSubmit)="submitForm()" [formGroup]="form">
   <div id="teacherFirstName">
     <label for="firstName">Prénom du professeur</label>
     <input formControlName="firstName" id="firstName" type="text">
   </div>
+
   <br>
   <div id="teacherLastName">
     <label for="lastName">Nom du professeur</label>
     <input formControlName="lastName" id="lastName" type="text">
   </div>
   <br>
-  <div id="teacherDob">
-    <input [matDatepicker]="basicDatepicker">
-    <mat-datepicker-toggle [for]="basicDatepicker"></mat-datepicker-toggle>
-    <mat-datepicker #basicDatepicker></mat-datepicker>
-  </div>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="dd/mm/aaaa" formControlName="dob">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker panelClass="datepickerOne"></mat-datepicker>
+    <mat-hint>(DD/MM/YYYY)</mat-hint>
+  </mat-form-field>
+
   <br>
-  <div id="teacherLessons">
+  <br>
+  <br>
+
+  <ng-container formArrayName="lessons">
     <label>Veuillez selectionner les matières enseignées</label>
-    <br>
-    <select multiple formControlName="lessons" >
-      <option *ngFor="let lesson of lessons" value="{{lesson.name}}"> {{lesson.name}}</option>
-    </select>
-  </div>
+
+    <ng-container *ngFor="let lessonForm of lessons.controls; let index = index" >
+      <div [formGroupName]="index">
+        <select formControlName="id">
+          <option *ngFor="let lesson of lessonsList" value="{{lesson.id}}">{{lesson.name}}</option>
+        </select>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <button *ngIf="lessons.at(0).value['id'] != '' && lessons.length < 3" type="button" (click)="addNewLesson()">Ajouter une matière</button>
   <br>
-  <button type="submit">Send</button>
+  <button type="submit">Ajouter</button>
 </form>
+
+
 <pre>
-  {{Form.value | json}}
-</pre>
-Form status: {{Form.valid | json}}
+    {{lessons.at(0).value["id"]}}
+  </pre>
+
+
+<pre>
+    {{form.value | json}}
+  </pre>
+
+Form status: {{form.valid | json}}
 

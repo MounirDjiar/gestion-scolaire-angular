@@ -1,13 +1,13 @@
 <app-menu [schoolID]="schoolID"></app-menu>
 <br>
 <h3 class="text-center">Details de la classe {{clazz.name}}</h3>
-<li class="text-center"><a routerLink="/clazzs">Liste des classes</a></li>
+<li class="text-center"><a [routerLink]="['/schools', schoolID ,'clazzs']">Liste des classes</a></li>
 <br>
 <div id="details">
   <h4 class="text-center"> {{clazz.name}}</h4>
   <ul>
     <li><b>Id:</b> {{clazz.id}}</li>
-    <li><b>Professeur principal:</b> {{clazz.mainTeacher}}</li>
+    <li><b>Professeur principal:</b> {{clazz.mainTeacher.firstName}} {{clazz.mainTeacher.lastName}}</li>
   </ul>
 </div>
 <ng-template #content let-modal>

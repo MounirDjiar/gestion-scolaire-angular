@@ -53,7 +53,7 @@ export class ClassroomAddComponent implements OnInit {
       });
   }
 
-  get selectedLesson(): FormArray {
+  get excludedLesson(): FormArray {
     return this.Form.get('excludedLessons') as FormArray;
   }
 
