@@ -1,5 +1,5 @@
 <br>
-<h3 class="text-center">Gérer un établissement</h3>
+<h3 class="text-center">Gestion des établissement</h3>
 <br>
 
 <form [formGroup]="formGroup" (ngSubmit)="submitFormSelectSchool()">
@@ -12,5 +12,8 @@
   </div>
   <br>
   <br>
-  <button type="submit">Gérer</button>
+  <button type="submit">Gérer cet établissement</button>
 </form>
+<br>
+<li class="text-center"><a [routerLink]="['/schools/','add']">Ajouter un établissement</a></li>
+<br>

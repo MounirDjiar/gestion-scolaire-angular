@@ -79,9 +79,6 @@ export class TeacherAddComponent implements OnInit {
         this.lessonsList = this.lessonsList.filter(lesson => lesson.id = eltToRemove);
       }
     }
-
-    console.log(JSON.stringify(this.lessonsList));
-
   }
 
   submitForm() {

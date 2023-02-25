@@ -1,4 +1,6 @@
-<h1>Ajout d'un établissement</h1>
+<br>
+<h3 class="text-center">Ajouter un établissement</h3>
+<li class="text-center"><a [routerLink]="['/schools/']">Liste des établissement</a></li>
 
 <!-- VALIDATION ERRORS -->
 <ul *ngIf="formAlreadySubmitted === true">
@@ -8,33 +10,44 @@
   <li *ngIf="formGroup.controls['phoneNumber'].errors?.['required']">Vous devez saisir un numéro de téléphone</li>
 </ul>
 
+<br>
+
 <form [formGroup]="formGroup" (ngSubmit)="submitFormAddSchool()">
   <div>
     <label for="name">Nom de l'établissement:</label>
     <input type="text" id="name" formControlName="name">
   </div>
 
+  <br>
+
   <div>
     <label for="address">Adresse:</label>
     <input type="text" id="address" formControlName="address">
   </div>
 
+  <br>
+
   <div>
+    <label>Veuillez selectionner le type de l'établissement</label>
     <select id="schoolType" formControlName="schoolType">
       <option *ngFor="let schoolType of schoolTypes" [value]="schoolType">{{schoolType}}</option>
     </select>
   </div>
+
+  <br>
 
   <div>
     <label for="phoneNumber">Numéro de téléphone:</label>
     <input type="text" id="phoneNumber" formControlName="phoneNumber">
   </div>
 
+  <br>
+
   <div>
     <label for="logo">Logo:</label>
     <input type="text" id="logo" formControlName="logo">
   </div>
-
+  <br>
   <button type="submit">Ajouter</button>
 </form>
 

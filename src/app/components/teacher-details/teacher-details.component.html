@@ -10,7 +10,16 @@
     <li><b>Prénom :</b> {{teacher.firstName}}</li>
     <li><b>Nom :</b> {{teacher.lastName}}</li>
     <li><b>Date de naissance :</b> {{teacher.dob}}</li>
-    <li><b>Matieres enseignées :</b> {{teacher.lessons}}</li>
+
+    <li>
+      <b>Matieres enseignées:</b>
+      <ul *ngIf="teacher.lessons.length > 0">
+        <li *ngFor="let lesson of teacher.lessons">{{lesson.name}}<li>
+      </ul>
+      <ul *ngIf="teacher.lessons.length === 0">
+        Aucune matière enseignée
+      </ul>
+    </li>
   </ul>
 </div>
 <ng-template #content let-modal>

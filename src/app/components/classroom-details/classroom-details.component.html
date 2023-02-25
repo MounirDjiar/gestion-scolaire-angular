@@ -8,7 +8,15 @@
   <ul>
     <li><b>Id:</b> {{classroom.id}}</li>
     <li><b>Capacite:</b> {{classroom.capacity}} eleves maximum</li>
-    <li><b>Matieres excluses de cette salle:</b> {{classroom.excludedLessons}}</li>
+    <li>
+      <b>Matieres excluses de cette salle:</b>
+      <ul *ngIf="classroom.excludedLessons.length > 0">
+        <li *ngFor="let excludedLesson of classroom.excludedLessons">{{excludedLesson.name}}<li>
+      </ul>
+      <ul *ngIf="classroom.excludedLessons.length === 0">
+          Tous les cours sont permis
+      </ul>
+    </li>
   </ul>
 </div>
 <ng-template #content let-modal>
