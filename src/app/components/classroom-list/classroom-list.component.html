@@ -17,7 +17,14 @@
   <tr *ngFor="let classroom of classrooms">
     <td>{{ classroom.id }}</td>
     <td>{{ classroom.name }}</td>
-    <td>{{ classroom.excludedLessons }}</td>
+    <td>
+      <ul *ngIf="classroom.excludedLessons.length > 0" #excludedLessons>
+        <li *ngFor="let excluded of classroom.excludedLessons">{{excluded.name}}</li>
+      </ul>
+      <ul *ngIf="classroom.excludedLessons.length === 0" #excludedLessons>
+          Tous les cours sont permis
+      </ul>
+    </td>
     <td>{{ classroom.capacity }}</td>
    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'classrooms',classroom.id]">Details</button></td>
   </tr>

@@ -26,10 +26,12 @@ import { LessonListComponent } from './components/lesson-list/lesson-list.compon
 import { LessonAddComponent } from './components/lesson-add/lesson-add.component';
 import { LessonDetailsComponent } from './components/lesson-details/lesson-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
-import {MatNativeDateModule} from "@angular/material/core";
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatMomentDateModule, MomentDateModule} from "@angular/material-moment-adapter";
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDateFormats, MatNativeDateModule} from "@angular/material/core";
 
 const routes: Routes = [
 
@@ -64,6 +66,18 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: "full"}
 ]
 
+const MY_FORMAT: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +101,7 @@ const routes: Routes = [
     SchoolDetailsComponent,
     SchoolComponent,
 
+
   ],
   imports: [
     BrowserModule,
@@ -96,13 +111,23 @@ const routes: Routes = [
     ReactiveFormsModule,
     FullCalendarModule,
     RouterModule.forRoot(routes),
+
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MomentDateModule,
+    MatDatepickerModule,
+    MatMomentDateModule
+
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMAT }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

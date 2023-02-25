@@ -3,27 +3,33 @@
 <h3 class="text-center">Ajouter une salle de classe</h3>
 <li class="text-center"><a [routerLink]="['/schools/', schoolID, 'classrooms']">Liste des salles de classes</a></li>
 <ul *ngIf="formSubmitted" class="text-md-start">
-  <li *ngIf="Form.controls['name'].errors?.['required']">Veuillez entrer le nom de la salle de cours</li>
-  <li *ngIf="Form.controls['capacity'].errors?.['required']">Veuillez indiquer la capacite de la salle</li>
-  <li *ngIf="Form.controls['capacity'].errors?.['min']">La capacite de la salle doit etre comprise entre 0 et 100</li>
-  <li *ngIf="Form.controls['capacity'].errors?.['max']">La capacite de la salle doit etre comprise entre 0 et 100</li>
+  <li *ngIf="form.controls['name'].errors?.['required']">Veuillez entrer le nom de la salle de cours</li>
+  <li *ngIf="form.controls['capacity'].errors?.['required']">Veuillez indiquer la capacite de la salle</li>
+  <li *ngIf="form.controls['capacity'].errors?.['min']">La capacite de la salle doit etre comprise entre 0 et 100</li>
+  <li *ngIf="form.controls['capacity'].errors?.['max']">La capacite de la salle doit etre comprise entre 0 et 100</li>
 </ul>
 <br>
-<form (ngSubmit)="submitForm()" [formGroup]="Form">
+<form (ngSubmit)="submitForm()" [formGroup]="form">
   <div id="classroomName">
     <label for="name">Nom de la salle de cours</label>
     <input formControlName="name" id="name" type="text">
   </div>
   <br>
 
-  <div formArrayName="excludedLessons">
-    <div *ngFor="let l of selectedLesson.controls; let i = index"[formGroupName]="i">
-      <label for="lessonId">Veuillez selectionner les cours a exclure de cette salle de cours</label>
-      <select multiple formControlName="id" id="lessonId">
-        <option *ngFor="let lesson of lessons" [value]="lesson.id">{{lesson.name}}</option>
-      </select>
-    </div>
-  </div>
+  <ng-container formArrayName="excludedLessons">
+    <label>Veuillez selectionner les matières exclues de cette classe</label>
+
+    <ng-container *ngFor="let lessonForm of lessons.controls; let index = index" >
+      <div [formGroupName]="index">
+        <select formControlName="id">
+          <option *ngFor="let lesson of lessonsList" value="{{lesson.id}}">{{lesson.name}}</option>
+        </select>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <button *ngIf="lessons.at(0).value['id'] != '' && lessons.length < 3" type="button" (click)="addNewExcludedLesson()">Ajouter une matière à exclure</button>
+  <br>
 
 
   <br>
@@ -35,6 +41,6 @@
   <button type="submit">Send</button>
 </form>
 <pre>
-  {{Form.value | json}}
+  {{form.value | json}}
 </pre>
-Form status: {{Form.valid | json}}
+Form status: {{form.valid | json}}

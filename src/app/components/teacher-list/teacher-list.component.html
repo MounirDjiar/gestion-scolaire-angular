@@ -20,7 +20,14 @@
     <td>{{ teacher.firstName }}</td>
     <td>{{ teacher.lastName }}</td>
     <td>{{ teacher.dob }}</td>
-    <td>{{ teacher.lessons }}</td>
+    <td>
+      <ul *ngIf="teacher.lessons.length > 0" #lessons>
+        <li *ngFor="let lesson of teacher.lessons">{{lesson.name}}</li>
+      </ul>
+      <ul *ngIf="teacher.lessons.length === 0" #lessons>
+        Aucune matière enseignée
+      </ul>
+    </td>
     <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Details</button></td>
     <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'teachers',teacher.id,'schedule']">Planning</button></td>
   </tr>
