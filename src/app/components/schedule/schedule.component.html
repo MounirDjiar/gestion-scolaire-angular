@@ -1,54 +1,69 @@
 <app-menu [schoolID]="schoolID"></app-menu>
 
-<p> Classe 6ème B (TODO : Rajouter la dépendances pour afficher la bonne classe d'élèves)</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajouter un créneau</h4>
+  </div>
+  <div class="modal-body">
 
-<form *ngIf="showForm">
-  <div class="form-group">
-    <label>Jour:</label>
-    <input type="date" id="day" name="day" class="form-control" [(ngModel)]="form.day" [ngModelOptions]="{standalone: true}">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label>Jour:</label>
+          <input formControlName="day" type="date" id="day" name="day" class="form-control">
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Heure de début:</label>
+          <input formControlName="startingHour" type="time" id="debut" name="debut" class="form-control" min="09:00" max="18:00" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Heure de fin:</label>
+          <input formControlName="endingHour" type="time" id="fin" name="fin" class="form-control" min="09:00" max="18:00" required>
+        </div>
+        <br>
+        <div class="form-group" formGroupName="clazz">
+          <label>Classe:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="clazzSelected($event)">
+            <option *ngFor="let clazz of clazzsList" [value]="clazz.id">{{ clazz.name }}</option>
+          </select>
+        </div>
+        <br>
+        <div *ngIf="displayLessons" class="form-group" formGroupName="lesson">
+          <label>Matière:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="lessonSelected($event)">
+            <option *ngFor="let lesson of lessonsList" [value]="lesson.id">{{ lesson.name }}</option>
+          </select>
+        </div>
+        <br>
+        <div *ngIf="displayTeachers" class="form-group" formGroupName="teacher">
+          <label>Professeur:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="teacherSelected($event)">
+            <option *ngFor="let teacher of teachersList" [value]="teacher.id">{{ teacher.lastName }}</option>
+          </select>
+        </div>
+        <br>
+        <div *ngIf="displayClassrooms" class="form-group"  formGroupName="classroom">
+          <label>Salle de classe:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="classroomSelected($event)">
+            <option *ngFor="let classroom of classroomsList" [value]="classroom.id">{{ classroom.name }}</option>
+          </select>
+        </div>
+      </form>
   </div>
-  <div class="form-group">
-    <label>Heure de début:</label>
-    <input type="time" id="debut" name="debut" class="form-control" [(ngModel)]="form.start" [ngModelOptions]="{standalone: true}"
-           min="09:00" max="18:00" required>
-  </div>
-  <div class="form-group">
-    <label>Heure de fin:</label>
-    <input type="time" id="fin" name="fin" class="form-control" [(ngModel)]="form.end" [ngModelOptions]="{standalone: true}"
-           min="09:00" max="18:00" required>
-  </div>
-  <div class="form-group">
-    <label>Professeur:</label>
-    <select class="form-control" [(ngModel)]="form.teacher" [ngModelOptions]="{standalone: true}">
-      <option *ngFor="let teacher of teachersList" [value]="teacher.lastName">{{ teacher.lastName }}</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Matière:</label>
-    <select class="form-control" [(ngModel)]="form.lesson" [ngModelOptions]="{standalone: true}">
-      <option *ngFor="let lesson of lessonsList" [value]="lesson.name">{{ lesson.name }}</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Salle de classe:</label>
-    <select class="form-control" [(ngModel)]="form.classroom" [ngModelOptions]="{standalone: true}">
-      <option *ngFor="let classroom of classroomsList" [value]="classroom.name">{{ classroom.name }}</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Classe:</label>
-    <select class="form-control" [(ngModel)]="form.clazz" [ngModelOptions]="{standalone: true}">
-      <option *ngFor="let clazz of clazzsList" [value]="clazz.name">{{ clazz.name }}</option>
-    </select>
-  </div>
-</form>
 
-<button class="btn btn-success" (click)="createEvent()">Create</button>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="createEvent()">Create</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+  </div>
+
+</ng-template>
+
+<button (click)="open(content)" class="btn btn-outline-danger" style="margin-top: 15px">Creer schedule</button>
 
 <full-calendar #calendar
                [options]="calendarOptions"
                (select)="handleSelect($event)">
 </full-calendar>
 
-
-<pre>{{showForm}}</pre>
+<pre>{{form.value | json}}</pre>
