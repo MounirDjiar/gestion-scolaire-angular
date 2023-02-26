@@ -27,7 +27,7 @@ export class TeacherDetailsComponent implements OnInit {
       this.teacherService.delete(this.teacher.id)
         .subscribe(value => {
           this.currentModal?.close()
-          this.router.navigateByUrl('/teachers')
+          this.router.navigateByUrl(`schools/${this.schoolID}/teachers`)
         })
     } else {
       console.log('teacher deleted !');

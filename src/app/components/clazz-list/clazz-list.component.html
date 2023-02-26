@@ -5,7 +5,7 @@
 <br>
 <li class="text-center"><a [routerLink]="['/schools/',schoolID,'clazzs','add']">Ajouter une classe</a></li>
 <br>
-<table class="table table-striped">
+<table *ngIf="clazzs.length > 0" class="table table-striped">
   <thead>
   <tr class="text-center">
     <th>Id</th>
@@ -23,3 +23,7 @@
   </tr>
   </tbody>
 </table>
+
+<div *ngIf="clazzs.length === 0">
+  Il n'y a aucune classe dans cet établissement
+</div>

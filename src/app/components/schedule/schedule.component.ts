@@ -10,26 +10,43 @@ import {Clazz} from "../../../models/clazz.model";
 import {Classroom} from "../../../models/classroom.model";
 import {SchoolService} from "../../../services/school.service";
 
-import {en} from "@fullcalendar/core/internal-common";
 import * as moment from "moment";
+import {ScheduleService} from "../../../services/schedule.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css']
 })
+
 export class ScheduleComponent implements AfterViewInit , OnInit {
+
+  displayTeachers = false;
+  displayLessons = false;
+  displayClassrooms = false;
+  displayClazzs = false;
+
+  classroomID!: string
+  teacherID!:string
+  clazzID!: string
+  lessonID!: string
 
   schoolID!:string;
   teachersList: Teacher[] = [];
   lessonsList: Lesson[] = [];
   clazzsList: Clazz[] = [];
   classroomsList: Classroom[] = [];
-  showForm = true;
-  form: any = {};
+  form!: FormGroup;
+  currentModal: NgbModalRef | undefined;
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private schoolService: SchoolService
+    private schoolService: SchoolService,
+    private scheduleService: ScheduleService,
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,
   ){
   }
 
@@ -37,39 +54,32 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     // Get school id from url
     this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
 
-    this.schoolService.findClassroomsBySchoolId(Number(this.schoolID)).subscribe(
-      classrooms => {
-        this.classroomsList = classrooms;
-      });
-
-    this.schoolService.findLessonsBySchoolId(Number(this.schoolID)).subscribe(
-      lessonsList => {
-        this.lessonsList = lessonsList;
-      });
-
     this.schoolService.findClazzsBySchoolId(Number(this.schoolID)).subscribe(
-      clazzsList => {
-        this.clazzsList = clazzsList;
-      });
+    clazzsList => {
+      this.clazzsList = clazzsList;
+    });
 
-    this.schoolService.findTeachersBySchoolId(Number(this.schoolID)).subscribe(
-      teachersList => {
-        this.teachersList = teachersList;
-      });
-
-    this.form = {
-      title: '',
-      teacher: '',
-      classroom: '',
-      studentClass: '',
-
-    };
-
+    this.form = this.formBuilder.group({
+      day:'',
+      startingHour:'',
+      endingHour:'',
+      lesson: this.formBuilder.group({
+        id: ''
+      }),
+      teacher:  this.formBuilder.group({
+        id: ''
+      }),
+      classroom:  this.formBuilder.group({
+        id: ''
+      }),
+      clazz:  this.formBuilder.group({
+        id: ''
+      })
+    });
 
   }
 
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
-
   ngAfterViewInit() {
     this.calendarComponent.getApi().render();
   }
@@ -85,7 +95,7 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     eventTimeFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
     dayHeaders: true,
     height: 'auto',
-    slotMinTime: '07:00:00',
+    slotMinTime: '08:00:00',
     slotMaxTime: '19:00:00',
     visibleRange: {
       start: '2023-02-20', // lundi
@@ -104,21 +114,6 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     plugins: [timeGridPlugin, interactionPlugin],
 
     events: [
-
-      {
-        title: 'Cours de Physique avec les 6ème B',
-        start: '2023-02-20T08:00:00',
-        end: '2023-02-20T10:00:00',
-        color: '#378006',
-        textColor: 'white',
-        editable: true,
-        durationEditable: true,
-        startEditable: true,
-        extendedProps: [{
-          salle: 'B102',
-          professeur: 'Martin'
-        }]
-      }
     ],
     eventDrop: (info) => {
       console.log(info);
@@ -126,81 +121,42 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     eventResize: (info) => {
       console.log(info);
     }
-
   };
 
   handleEventClick(eventInfo: any) {
     console.log(eventInfo);
   }
 
-  /*
-    handleSelect(selectInfo: any) {
-
-
-      const title = prompt('Event Title:');
-      const teacher = prompt('Prof:');
-      const classroom = prompt('Salle de classe:');
-      const studentClass = prompt('Classe d\' élèves:');
-      const calendarApi = selectInfo.view.calendar;
-      calendarApi.unselect(); // clear date selection
-      if (title) {
-        calendarApi.addEvent({
-          title,
-          teacher,
-          classroom,
-          studentClass,
-          color: "green",
-          editable: true,
-          durationEditable: true,
-          startEditable: true,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-        });
-      }
-    }
-
-  */
   handleSelect(selectInfo: any) {
-    this.form = {
-      day:'',
-      start:'',
-      end:'',
-      teacher: '',
-      lesson: '',
-      classroom: '',
-      clazz: ''
-    };
-    this.showForm = true;
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
-    console.log("here")
-    console.log(this.showForm)
   }
 
   createEvent() {
-    const title = `${this.form.lesson} - ${this.form.teacher} - ${this.form.clazz} - ${this.form.classroom}`;
 
-    const day = moment(this.form.day, 'YYYY-MM-DD');
-    const start = moment(this.form.start, 'HH:mm');
-    const end = moment(this.form.end, 'HH:mm');
+    //const title = `${this.form.value.lesson} - ${this.form.value.teacher} - ${this.form.value.clazz} - ${this.form.value.classroom}`;
+    const title = "Hello";
+    const day = moment(this.form.value.day, 'YYYY-MM-DD');
+    const startingHour = moment(this.form.value.startingHour, 'HH:mm');
+    const endingHour = moment(this.form.value.endingHour, 'HH:mm');
     const calendarApi = this.calendarComponent.getApi();
 
     const startDate = day.clone().set({
-      hour: start.hour(),
-      minute: start.minute(),
+      hour: startingHour.hour(),
+      minute: startingHour.minute(),
       second: 0,
       millisecond: 0
     });
+
     const endDate = day.clone().set({
-      hour: end.hour(),
-      minute: end.minute(),
+      hour: startingHour.hour(),
+      minute: startingHour.minute(),
       second: 0,
       millisecond: 0
     });
 
     calendarApi.addEvent({
       title,
-
       color: "green",
       editable: true,
       durationEditable: true,
@@ -209,21 +165,52 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
       end: endDate.toISOString()
     });
 
-    this.showForm = true;
+    this.scheduleService.add(this.form.value)
+      .subscribe(val => {
+        console.log('Event created:', val);
+      });
+
   }
 
-
-
-  /*
-  handleEventClick(clickInfo: any) {
-    if (
-      confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'?`
-      )
-    ) {
-      clickInfo.event.remove();
-    }
+  open(content: any) {
+    this.currentModal = this.modalService.open(content)
   }
-  */
+
+  clazzSelected(target:any) {
+
+    // Get lessons list
+    this.scheduleService.findLessonsBySchoolIdAndClazzId(Number(this.schoolID), Number(this.clazzID)).subscribe(
+      lessons => {
+        this.lessonsList = lessons;
+        this.displayLessons = true;
+      });
+  }
+
+  lessonSelected(target:any) {
+    // Get teachers list
+    this.scheduleService.findTeachersBySchoolIdAndClazzIDAndLessonId(Number(this.schoolID), Number(this.clazzID), Number(this.lessonID)).subscribe(
+      teachers => {
+        this.teachersList = teachers;
+        this.displayTeachers = true;
+      });
+  }
+
+  teacherSelected(target:any) {
+    // Get classrooms list
+    this.scheduleService.findClassroomsBySchoolIdAndClazzIdAndLessonIdAndTeacherID(
+              Number(this.schoolID),
+              Number(this.clazzID),
+              Number(this.lessonID),
+              Number(this.teacherID)
+    ).subscribe(
+      classrooms => {
+        this.classroomsList = classrooms;
+        this.displayClassrooms = true;
+      });
+  }
+
+  classroomSelected(target:any) {
+
+  }
 
 }

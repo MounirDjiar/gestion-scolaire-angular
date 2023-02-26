@@ -4,13 +4,9 @@
 <li class="text-center"><a [routerLink]="['/schools', schoolID ,'teachers']">Liste des professeurs</a></li>
 <br>
 <div id="details">
-  <h4 class="text-center"> Monsieur/Madame{{teacher.lastName}}</h4>
+  <h4 class="text-center">{{teacher.firstName}} {{teacher.lastName}}</h4>
   <ul>
-    <li><b>Id:</b> {{teacher.id}}</li>
-    <li><b>Prénom :</b> {{teacher.firstName}}</li>
-    <li><b>Nom :</b> {{teacher.lastName}}</li>
     <li><b>Date de naissance :</b> {{teacher.dob}}</li>
-
     <li>
       <b>Matieres enseignées:</b>
       <ul *ngIf="teacher.lessons.length > 0">
@@ -29,7 +25,7 @@
   <div class="modal-body">
     <form>
       <div class="mb-3">
-        Voulez-vous vraiment supprimer le professeur ?{{teacher.lastName}}
+        Voulez-vous vraiment supprimer {{teacher.firstName}} {{teacher.lastName}} de la liste des professeurs ?
       </div>
     </form>
   </div>

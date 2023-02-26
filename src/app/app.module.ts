@@ -32,6 +32,7 @@ import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatMomentDateModule, MomentDateModule} from "@angular/material-moment-adapter";
 import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDateFormats, MatNativeDateModule} from "@angular/material/core";
+import interactionPlugin from "@fullcalendar/interaction";
 
 const routes: Routes = [
 
@@ -111,7 +112,6 @@ const MY_FORMAT: MatDateFormats = {
     ReactiveFormsModule,
     FullCalendarModule,
     RouterModule.forRoot(routes),
-
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
@@ -128,6 +128,8 @@ const MY_FORMAT: MatDateFormats = {
   ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }
 
 

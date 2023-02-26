@@ -4,7 +4,7 @@
 <br>
 <li class="text-center"><a [routerLink]="['/schools/',schoolID,'classrooms','add']">Ajouter une salle de classe</a></li>
 <br>
-<table class="table table-striped">
+<table  *ngIf="classrooms.length > 0" class="table table-striped">
   <thead>
   <tr>
     <th>Id</th>
@@ -30,4 +30,7 @@
   </tr>
   </tbody>
 </table>
-<button type="button" class="btn btn-secondary" (click)="generatePdf()">Télécharger en PDF</button>
+<div *ngIf="classrooms.length === 0">
+  Il n'y a aucune salle de classe dans cet établissement
+</div>
+<button *ngIf="classrooms.length > 0" type="button" class="btn btn-secondary" (click)="generatePdf()">Télécharger en PDF</button>

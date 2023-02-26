@@ -40,7 +40,7 @@ export class LessonDetailsComponent implements OnInit {
       this.lessonService.delete(this.lesson!.id)
         .subscribe(value => {
           this.currentModal?.close()
-          this.router.navigateByUrl('/lessons')
+          this.router.navigateByUrl(`schools/${this.schoolID}/lessons`)
         })
     } else {
       console.log('lesson deleted !');
