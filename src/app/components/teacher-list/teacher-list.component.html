@@ -29,11 +29,11 @@
       </ul>
     </td>
     <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Details</button></td>
-    <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'teachers',teacher.id,'schedule']">Planning</button></td>
+    <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'teachers',teacher.id, 'teacher', 'schedules']">Planning</button></td>
   </tr>
   </tbody>
 </table>
 <div *ngIf="teachers.length === 0">
   Il n'y a aucun enseignant dans cet établissement
 </div>
-<button *ngIf="teachers.length > 0" type="button" class="btn btn-secondary" (click)="generatePdf()">Télécharger en PDF</button>
+<button *ngIf="teachers.length > 0" type="button" class="btn btn-secondary" (click)="generatePdf()">Exporter en PDF</button>

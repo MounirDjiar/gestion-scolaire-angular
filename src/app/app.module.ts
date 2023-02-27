@@ -55,15 +55,16 @@ const routes: Routes = [
   {path: 'schools/:schoolId/clazzs', component: ClazzListComponent},
   {path: 'schools/:schoolId/clazzs/add', component: ClazzAddComponent},
   {path: 'schools/:schoolId/clazzs/:id', component: ClazzDetailsComponent},
-  {path: 'schools/:schoolId/clazzs/:id/schedule', component: ScheduleComponent},
+  {path: 'schools/:schoolId/clazzs/:id/:type/schedules', component: ScheduleComponent},
 
   // TEACHERS
   {path: 'schools/:schoolId/teachers', component: TeacherListComponent},
   {path: 'schools/:schoolId/teachers/add', component: TeacherAddComponent},
   {path: 'schools/:schoolId/teachers/:id', component: TeacherDetailsComponent},
-  {path: 'schools/:schoolId/teachers/:id/schedule', component: ScheduleComponent},
+  {path: 'schools/:schoolId/teachers/:id/:type/schedules', component: ScheduleComponent},
 
-  {path: 'home', component: HomeComponent},
+  // HOME
+  {path: 'home', component: SchoolListComponent},
   {path: '', redirectTo: 'home', pathMatch: "full"}
 ]
 
@@ -101,8 +102,6 @@ const MY_FORMAT: MatDateFormats = {
     SchoolListComponent,
     SchoolDetailsComponent,
     SchoolComponent,
-
-
   ],
   imports: [
     BrowserModule,

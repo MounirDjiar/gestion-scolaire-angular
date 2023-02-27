@@ -19,7 +19,7 @@
     <td>{{ clazz.name }}</td>
     <td>{{ clazz.mainTeacher.firstName}} {{ clazz.mainTeacher.lastName}}</td>
     <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'clazzs',clazz.id]">Details</button></td>
-    <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'clazzs',clazz.id,'schedule']">Planning</button></td>
+    <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'clazzs',clazz.id, 'clazz', 'schedules']">Planning</button></td>
   </tr>
   </tbody>
 </table>

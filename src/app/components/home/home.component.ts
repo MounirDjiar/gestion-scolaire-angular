@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {School} from "../../../models/school.model";
 import {SchoolService} from "../../../services/school.service";
@@ -16,10 +16,12 @@ export class HomeComponent implements OnInit {
 
   schoolsList: School[] = [];
 
+  @Input()
+  school: School | undefined;
   constructor(
-      private schoolService: SchoolService,
-      private fb: FormBuilder,
-      private router: Router,
+    private schoolService: SchoolService,
+    private fb: FormBuilder,
+    private router: Router,
   ) {
   }
 
@@ -32,7 +34,7 @@ export class HomeComponent implements OnInit {
     // Get the schools list
     this.schoolService.findAll().subscribe(
       schoolsList => {
-          this.schoolsList = schoolsList;
+        this.schoolsList = schoolsList;
 
         // Set default values in the select
         if(schoolsList.length > 0)

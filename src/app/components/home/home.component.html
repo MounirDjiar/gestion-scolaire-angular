@@ -1,3 +1,4 @@
+<!--
 <br>
 <h3 class="text-center">Gestion des établissement</h3>
 <br>
@@ -17,3 +18,18 @@
 <br>
 <li class="text-center"><a [routerLink]="['/schools/','add']">Ajouter un établissement</a></li>
 <br>
+-->
+<div class="card text-black mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{school?.name}}</h5>
+    <p class="card-text">
+      Type d'établissement': {{school?.schoolType}}<br>
+      Adresse: {{school?.address}}<br>
+      Numéro de téléphone: {{school?.phoneNumber}}<br>
+      Logo: {{school?.logo}}
+    </p>
+    <button [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gérer cet établissement</button>
+  </div>
+</div>
+
+Message @Jérôme Laigle
