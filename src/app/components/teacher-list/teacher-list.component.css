@@ -1,11 +1,47 @@
-li {
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
   list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
-li a {
+a{
+  font-size: 12px;
   text-decoration: none;
 }
 
 li a:hover {
   background-color: dodgerblue;
   color: white;
+}
+table {
+  margin-left: 200px;
+}
+th, td {
+  text-align: center;
+}
+th{
+  padding: 5px 0;
+  margin: 0;
+}
+
+td{
+  padding:5px 0;
+  margin: 0;
+}
+button {
+  padding: 5px 20px;
+  /*background: lightsteelblue;*/
+  border: darkslateblue;
+  color: #333333;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#details{
+  background: lightsteelblue;
+
+}
+#planning{
+  background: darkseagreen;
 }

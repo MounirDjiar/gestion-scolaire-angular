@@ -1,39 +1,85 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<br>
 <h3 class="text-center">Ajouter une salle de classe</h3>
 <li class="text-center"><a [routerLink]="['/schools/', schoolID, 'classrooms']">Liste des salles de classes</a></li>
+
+
+<!--******* WARNING MESSAGES FOR MISSING FIELDS ******-->
 <ul *ngIf="formSubmitted" class="text-md-start">
   <li *ngIf="Form.controls['name'].errors?.['required']">Veuillez entrer le nom de la salle de cours</li>
   <li *ngIf="Form.controls['capacity'].errors?.['required']">Veuillez indiquer la capacite de la salle</li>
   <li *ngIf="Form.controls['capacity'].errors?.['min']">La capacite de la salle doit etre comprise entre 0 et 100</li>
   <li *ngIf="Form.controls['capacity'].errors?.['max']">La capacite de la salle doit etre comprise entre 0 et 100</li>
 </ul>
-<br>
-<form (ngSubmit)="submitForm()" [formGroup]="Form">
+<div class="wrapper">
+<!--******* FORM START ******-->
+<form (ngSubmit)="ngOnSubmit()" [formGroup]="Form">
+
+<!--******* CLASSROOM INPUT ******-->
   <div id="classroomName">
     <label for="name">Nom de la salle de cours</label>
     <input formControlName="name" id="name" type="text">
   </div>
-  <br>
 
-  <div formArrayName="excludedLessons">
-    <div *ngFor="let l of selectedLesson.controls; let i = index"[formGroupName]="i">
-      <label for="lessonId">Veuillez selectionner les cours a exclure de cette salle de cours</label>
-      <select multiple formControlName="id" id="lessonId">
-        <option *ngFor="let lesson of lessons" [value]="lesson.id">{{lesson.name}}</option>
+  <!--******* EXCLUDED LESSONS INPUT ******-->
+
+
+<!--  <div formArrayName="excludedLessons">-->
+<!--    <div *ngFor="let l of selectedLesson.controls; let i = index"[formGroupName]="i">-->
+<!--      <label for="lessonId">Veuillez selectionner les cours a exclure de cette salle de cours</label>-->
+<!--      <select multiple formControlName="id" id="lessonId">-->
+<!--        <option *ngFor="let lesson of lessons" [value]="lesson.id">{{lesson.name}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+    <div id="clasroomExcludedLessons">
+      <label>Veuillez selectionner les cours a exclure de cette salle de cours</label>
+      <select multiple formControlName="excludedLessons">
+        <option *ngFor="let lesson of lessonsList" value="{{lesson.id}}"> {{lesson.name}}</option>
       </select>
     </div>
-  </div>
 
 
-  <br>
+
+
+
+
+<!--  <div id="clasroomExcludedLesson">-->
+<!--    <label>Veuillez selectionner les cours a exclure de cette salle de cours</label>-->
+<!--    <select multiple formControlName="excludedLesson" >-->
+<!--      <option *ngFor="let lesson of lessons" value="{{lesson.name}}"> {{lesson.name}}</option>-->
+<!--    </select>-->
+<!--  </div>-->
+
+
+<!--  <div formArrayName="clasroomExcludedLessons">-->
+<!--    <label>Veuillez selectionner les cours a exclure de cette salle de cours</label>-->
+<!--    <select multiple formControlName="excludedLessons" >-->
+<!--      <option *ngFor="let lesson of lessons" value="{{lesson.name}}"> {{lesson.name}}</option>-->
+<!--    </select>-->
+<!--  </div>-->
+
+
+
+
+
+  <!--******* CLASSROOM CAPACITY INPUT ******-->
   <div id="classroomCapacity">
-    <label for="capacity">Capacite de la salle de cours</label>
+    <label for="capacity">Capacité de la salle de cours</label>
     <input formControlName="capacity" id="capacity" type="number">Eleves
   </div>
-  <br>
+
+
+  <!--******* SUBMIT BUTTON ******-->
   <button type="submit">Send</button>
 </form>
+</div>
+<!--******* FORM END ******-->
+
+
+<!--******* USED FOR FIXING FORM ******-->
 <pre>
   {{Form.value | json}}
 </pre>

@@ -1,16 +1,18 @@
-<br>
-<h3 class="text-center">Gérer un établissement</h3>
-<br>
-
-<form [formGroup]="formGroup" (ngSubmit)="submitFormSelectSchool()">
-  <br>
-  <div id="schools">
-    <label>Veuillez selectionner un établissement</label>
-    <select formControlName="schoolId" >
-      <option *ngFor="let school of schoolsList" value="{{school?.id}}"> {{school?.name}}</option>
-    </select>
-  </div>
-  <br>
-  <br>
-  <button type="submit">Gérer</button>
-</form>
+<body>
+  <h1 class="text-center">BIENVENUE</h1>
+  <a routerLink="/schools/add" >Ajouter un établissement</a>
+    <div class="container">
+      <img class="wave" id="box" src="../../../assets/images/welcome-logo.png">
+      <div class="school-container" id="box">
+        <form [formGroup]="formGroup" (ngSubmit)="submitFormSelectSchool()">
+          <div id="schools">
+            <label>Veuillez sélectionner un établissement</label>
+            <select formControlName="schoolId" >
+              <option *ngFor="let school of schoolsList" value="{{school?.id}}"> {{school?.name}}</option>
+            </select>
+          </div>
+          <button type="submit">Gérer</button>
+        </form>
+      </div>
+    </div>
+</body>

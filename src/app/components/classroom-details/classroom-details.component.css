@@ -1,21 +1,65 @@
-ul {
-  margin: 20px 500px;
-}
-#btnDelete {
-  margin: 20px 500px;
-}
-#details{
-  border: solid 1px black;
-  padding: 10px 0;
+*{
+  margin-right: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
 
-li {
-  list-style: none;
-}
-li a {
+a{
+  font-size: 12px;
   text-decoration: none;
 }
-li a:hover {
-  background-color: dodgerblue;
-  color: white;
+h3{
+  /*padding-top: 30px;*/
+  font-size: 40px;
 }
+
+img{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: auto;
+  margin-top: 30px;
+  margin-left: 650px ;
+  margin-bottom: 20px;
+  /*border-radius: 50%;*/
+}
+
+ul{
+  margin-top: 50px;
+  margin-left: 600px;
+}
+/*ul {*/
+/*  margin: 20px 500px;*/
+/*}*/
+#btnDelete {
+  margin-top: 70px;
+  margin-left: 640px;
+  padding: 5px 10px;
+}
+
+.modal-header, .modal-body{
+  padding: 10px 20px;
+}
+.modal-footer button{
+  padding: 2px 5px;
+}
+
+/*#details{*/
+/*  border: solid 1px black;*/
+/*  padding: 10px 0;*/
+/*}*/
+
+/*li {*/
+/*  list-style: none;*/
+/*}*/
+/*li a {*/
+/*  text-decoration: none;*/
+/*}*/
+/*li a:hover {*/
+/*  background-color: dodgerblue;*/
+/*  color: white;*/
+/*}*/

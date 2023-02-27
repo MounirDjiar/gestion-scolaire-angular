@@ -1,20 +1,96 @@
 <app-menu [schoolID]="(school.id).toString()"></app-menu>
-<br>
+<body>
 <h3 class="text-center">{{school.name | uppercase}}</h3>
-<br>
+<img id="logo" src="assets/images/welcome-logo.png" alt="">
 <div id="details">
-  <h4 class="text-center"> {{school.name}}</h4>
+<!--  <h4 class="text-center"> {{school.name}}</h4>-->
   <ul>
-    <li><b>Id:</b> {{school.id}}</li>
+<!--    <li><b>Id:</b> {{school.id}}</li>-->
     <li><b>Adresse:</b> {{school.address}}</li>
     <li><b>Type d'établissement:</b> {{school.schoolType}}</li>
     <li><b>Numéro de téléphone:</b> {{school.phoneNumber}}</li>
     <li><img src="{{school.logo}}"></li>
   </ul>
-  <ul>
-    <li class="text-center"><b>Nombre de professeurs:</b> {{teachersList.length}}</li>
-    <li class="text-center"><b>Nombre de matières enseignées:</b> {{lessonsList.length}}</li>
-    <li class="text-center"><b>Nombre de classes</b> {{clazzsList.length}}</li>
-    <li class="text-center"><b>Nombre de salles classe</b> {{classroomsList.length}}</li>
-  </ul>
+
+  <div class="total-container">
+    <div class="card">
+      <img class="card-img-top" src="assets/images/room-icon.png" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text">Nombre de salles classe:</p>
+        <p class="number"><b>{{classroomsList.length}}</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img-top" src="assets/images/students-icon.png" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text">Nombre de classes:</p>
+        <p class="number"><b>{{clazzsList.length}}</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img-top" src="assets/images/book-icon.png" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text">Nombre de matières enseignées:</p>
+        <p class="number"><b>{{lessonsList.length}}</b></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img-top" src="assets/images/teacher-icon.png" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text">Nombre de professeurs:</p>
+        <p class="number"><b>{{teachersList.length}}</b></p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!--  <div class="total-container">-->
+<!--  <div class="card" style="width: 18rem;">-->
+<!--    <img class="card-img-top" src="assets/images/room-icon.png" alt="Card image cap">-->
+<!--    <div class="card-body">-->
+<!--      <p class="card-text">Nombre de salles classe:</p>-->
+<!--      <p><b>{{classroomsList.length}}</b></p>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="card" style="width: 18rem;">-->
+<!--    <img class="card-img-top" src="assets/images/students-icon.png" alt="Card image cap">-->
+<!--    <div class="card-body">-->
+<!--      <p class="card-text">Nombre de classes:</p>-->
+<!--      <p><b>{{clazzsList.length}}</b></p>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="card" style="width: 18rem;">-->
+<!--    <img class="card-img-top" src="assets/images/book-icon.png" alt="Card image cap">-->
+<!--    <div class="card-body">-->
+<!--      <p class="card-text">Nombre de matières enseignées:</p>-->
+<!--      <p><b>{{lessonsList.length}}</b></p>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="card" style="width: 18rem;">-->
+<!--    <img class="card-img-top" src="assets/images/teacher-icon.png" alt="Card image cap">-->
+<!--    <div class="card-body">-->
+<!--      <p class="card-text">Nombre de professeurs:</p>-->
+<!--      <p><b>{{teachersList.length}}</b></p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  </div>-->
+
+
+
+
+<!--  <ul>-->
+<!--    <li class="text-center"><b>Nombre de professeurs:</b> {{teachersList.length}}</li>-->
+<!--    <li class="text-center"><b>Nombre de matières enseignées:</b> {{lessonsList.length}}</li>-->
+<!--    <li class="text-center"><b>Nombre de classes</b> {{clazzsList.length}}</li>-->
+<!--    <li class="text-center"><b>Nombre de salles classe</b> {{classroomsList.length}}</li>-->
+<!--  </ul>-->
 </div>
+</body>

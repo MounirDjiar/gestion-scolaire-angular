@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Teacher} from "../models/teacher.model";
 import {environment} from "../environments/environment.development";
+import {Lesson} from "../models/lesson.model";
+import {Clazz} from "../models/clazz.model";
+import {Schedule} from "../models/schedule.model";
 
 
 
@@ -30,5 +33,18 @@ export class TeacherService {
 
   getOne(id: number): Observable<Teacher> {
     return this.httpTeacher.get<Teacher>(`${this.apiUrl}/${id}`);
+  }
+  getTaughtLessonsByTeacherId(id: number): Observable<Lesson[]> {
+    return this.httpTeacher.get<Lesson[]>(`${this.apiUrl}/${id}/taughtlessons`);
+  }
+  getMainClazzsByTeacherId(id: number): Observable<Clazz[]> {
+    return this.httpTeacher.get<Clazz[]>(`${this.apiUrl}/${id}/mainclazzs`);
+  }
+
+  getTotalMainClazzByTeacherId(id: number): Observable<number> {
+    return this.httpTeacher.get<number>(`${this.apiUrl}/${id}/totalmainclazzs`);
+  }
+  getSchedulesByTeacherId(id: number): Observable<Schedule[]> {
+    return this.httpTeacher.get<Schedule[]>(`${this.apiUrl}/${id}/schedules`);
   }
 }

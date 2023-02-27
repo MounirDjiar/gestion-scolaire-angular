@@ -10,9 +10,8 @@ a{
   font-size: 12px;
   text-decoration: none;
 }
-
 .wrapper{
-  width: 370px;
+  width: 400px;
   padding: 2rem 1rem;
   margin: 0px auto;
   background-color: lightsteelblue;
@@ -22,6 +21,16 @@ a{
 }
 
 form input{
+  width: 90%;
+  outline: none;
+  border: 1px solid #d9d9d9;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background: #F8F8F8;
+}
+
+form select{
   width: 90%;
   outline: none;
   border: 1px solid #d9d9d9;
@@ -49,55 +58,7 @@ button:hover{
 input:focus{
   border: 1px solid #333333;
 }
-
-/*.container-content{*/
-/*  width: 1000px;*/
-/*  background: gray;*/
-/*}*/
-
 ul {
   color: red;
   margin-left: 550px;
 }
-/*li {*/
-/*  list-style: none;*/
-/*}*/
-/*li a:hover {*/
-/*  background-color: dodgerblue;*/
-/*  color: white;*/
-/*}*/
-
-/*li a {*/
-/*  text-decoration: none;*/
-/*}*/
-/*form {*/
-/*  border: solid 1px black;*/
-/*  display: block;*/
-/*  padding: 50px;*/
-/*  margin: 0 350px;*/
-/*}*/
-
-/*#classroomName label {*/
-/*  padding-right: 20px;*/
-/*}*/
-
-/*#clasroomExcludedLesson label {*/
-/*  padding-bottom: 20px;*/
-/*}*/
-/*#clasroomExcludedLesson select {*/
-/*  display: inline-block;*/
-/*  justify-content: space-between;*/
-/*  margin: 0px 140px;*/
-/*}*/
-
-/*#classroomCapacity label {*/
-/*  padding-right: 20px;*/
-/*}*/
-
-/*#classroomCapacity input {*/
-/*  width: 100px;*/
-/*}*/
-
-/*button {*/
-/*  margin: 0 200px;*/
-/*}*/

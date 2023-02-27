@@ -6,6 +6,7 @@ import {Classroom} from "../models/classroom.model";
 import {Lesson} from "../models/lesson.model";
 import {Clazz} from "../models/clazz.model";
 import {Teacher} from "../models/teacher.model";
+import {environment} from "../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ import {Teacher} from "../models/teacher.model";
 
 export class SchoolService {
 
-  url: string = 'http://localhost:8087/gestionscolaire/schools';
+  private url = environment.production ? environment.apiUrl +'/schools' : environment.schoolMock;
 
   constructor(private http: HttpClient) {
   }

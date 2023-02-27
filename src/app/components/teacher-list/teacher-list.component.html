@@ -21,8 +21,8 @@
     <td>{{ teacher.lastName }}</td>
     <td>{{ teacher.dob }}</td>
     <td>{{ teacher.lessons }}</td>
-    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Details</button></td>
-    <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'teachers',teacher.id,'schedule']">Planning</button></td>
+    <td><button type="button" class="btn btn-primary" id="details" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Details</button></td>
+    <td><button type="button" class="btn btn-info" id="planning" [routerLink]="['/schools/',schoolID,'teachers',teacher.id,'schedule']">Planning</button></td>
   </tr>
   </tbody>
 </table>

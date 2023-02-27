@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Clazz} from "../models/clazz.model";
 import {environment} from "../environments/environment.development";
+import {Teacher} from "../models/teacher.model";
+import {Schedule} from "../models/schedule.model";
 
 
 @Injectable({
@@ -28,5 +30,11 @@ export class ClazzService {
 
   getOne(id: number): Observable<Clazz> {
     return this.httpClazz.get<Clazz>(`${this.apiUrl}/${id}`);
+  }
+  getMainTeacher(id:number): Observable<Teacher>{
+    return this.httpClazz.get<Teacher>(`${this.apiUrl}/${id}/mainteacher`);
+  }
+  getSchedules(id:number): Observable<Schedule[]>{
+    return this.httpClazz.get<Schedule[]>(`${this.apiUrl}/${id}/schedules`);
   }
 }

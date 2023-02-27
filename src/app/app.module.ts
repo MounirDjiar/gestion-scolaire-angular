@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SchoolListComponent} from "./components/school-list/school-list.component";
-import {AddSchoolComponent} from "./components/add-school/add-school.component";
+import {AddSchoolComponent} from "./components/school-add/add-school.component";
 import {SchoolComponent} from "./components/school/school.component";
 import {SchoolDetailsComponent} from "./components/school-details/school-details.component";
 import { HomeComponent } from './components/home/home.component';
@@ -98,7 +98,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     MatDatepickerModule

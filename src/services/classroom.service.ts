@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Classroom} from "../models/classroom.model";
 import {environment} from "../environments/environment.development";
+import {Lesson} from "../models/lesson.model";
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,11 @@ export class ClassroomService {
   getOne(id: number): Observable<Classroom> {
     return this.httpClassroom.get<Classroom>(`${this.apiUrl}/${id}`);
   }
+  getExcludedLessons(id:number):Observable<Lesson[]> {
+    return this.httpClassroom.get<Lesson[]>(`${this.apiUrl}/${id}/excludedlessons`);
+  }
+  getAuthorisedLessons(id:number):Observable<Lesson[]> {
+    return this.httpClassroom.get<Lesson[]>(`${this.apiUrl}/${id}/nonexcludedlessons`);
+  }
+
 }

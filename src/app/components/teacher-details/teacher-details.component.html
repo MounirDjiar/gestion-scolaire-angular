@@ -1,16 +1,15 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<br>
-<h3 class="text-center">Details du professeur {{teacher.lastName}}</h3>
-<li class="text-center"><a routerLink="/teachers">Liste des professeurs</a></li>
-<br>
+<h3 class="text-center">Détails du professeur {{teacher.lastName}}</h3>
+<img src="assets/images/teacher-icon.png" alt="">
+<li class="text-center"><a [routerLink]="['/schools', schoolID ,'teachers']">Liste des professeurs</a></li>
 <div id="details">
-  <h4 class="text-center"> Monsieur/Madame{{teacher.lastName}}</h4>
+<!--  <h4 class="text-center"> Monsieur/Madame{{teacher.lastName}}</h4>-->
   <ul>
     <li><b>Id:</b> {{teacher.id}}</li>
     <li><b>Prénom :</b> {{teacher.firstName}}</li>
     <li><b>Nom :</b> {{teacher.lastName}}</li>
     <li><b>Date de naissance :</b> {{teacher.dob}}</li>
-    <li><b>Matieres enseignées :</b> {{teacher.lessons}}</li>
+    <li *ngFor="let lesson of teacher.lessons"><b>Matieres enseignées :</b> {{lesson.name}}</li>
   </ul>
 </div>
 <ng-template #content let-modal>
@@ -20,7 +19,7 @@
   <div class="modal-body">
     <form>
       <div class="mb-3">
-        Voulez-vous vraiment supprimer le professeur ?{{teacher.lastName}}
+        Voulez-vous vraiment supprimer le professeur {{teacher.lastName}}?
       </div>
     </form>
   </div>
