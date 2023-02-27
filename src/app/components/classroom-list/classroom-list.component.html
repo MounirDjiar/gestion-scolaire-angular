@@ -1,9 +1,7 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<br>
 <h3 class="text-center">Liste des salles de cours</h3>
-<br>
+<a routerLink="/schools/add" >Ajouter un établissement</a>
 <li class="text-center"><a [routerLink]="['/schools/',schoolID,'classrooms','add']">Ajouter une salle de classe</a></li>
-<br>
 <table  *ngIf="classrooms.length > 0" class="table table-striped">
   <thead>
   <tr>

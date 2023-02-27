@@ -1,7 +1,13 @@
-li {
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
   list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
-li a {
+a{
+  font-size: 12px;
   text-decoration: none;
 }
 
@@ -10,6 +16,44 @@ li a:hover {
   color: white;
 }
 
-td {
-  padding-left: 115px;
+table{
+  margin-left: 200px;
+
 }
+th, td {
+  text-align: center;
+  vertical-align: middle;
+}
+th{
+  padding: 5px 0;
+  margin: 0;
+}
+
+td{
+  padding:5px 0;
+  margin: 0;
+
+}
+button{
+  /*margin: 0;*/
+  padding: 5px 20px;
+  background: lightsteelblue;
+  border: darkslateblue;
+  color: #333333;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: lightsteelblue; /* set the background color to a light blue shade */
+}
+/*.container-content{*/
+/*  flex: 1;*/
+/*  !*margin-left: 280px;*!*/
+/*  !*width: 1000px;*!*/
+/*}*/
+/*.container-content-navbar{*/
+/*  width: 200px*/
+/*}*/
+/*.container-content-page{*/
+/*  flex: 1;*/
+/*}*/

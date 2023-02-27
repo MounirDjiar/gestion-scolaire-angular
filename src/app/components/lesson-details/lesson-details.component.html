@@ -1,10 +1,9 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<br>
 <h3 class="text-center">Details de la matière {{lesson?.name}}</h3>
+<img src="assets/images/book-icon.png" alt="">
 <li class="text-center"><a [routerLink]="['/schools', schoolID ,'lessons']">Liste des matières</a></li>
-<br>
 <div id="details">
-  <h4 class="text-center">{{lesson?.name}}</h4>
+<!--  <h4 class="text-center">{{lesson?.name}}</h4>-->
   <ul>
     <li><b>Id:</b> {{lesson?.id}}</li>
     <li><b>Nom :</b> {{lesson?.name}}</li>

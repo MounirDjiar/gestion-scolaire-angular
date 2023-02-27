@@ -1,4 +1,3 @@
-<br>
 <h3 class="text-center">Ajouter un établissement</h3>
 <li class="text-center"><a [routerLink]="['/schools/']">Liste des établissement</a></li>
 
@@ -9,8 +8,7 @@
   <li *ngIf="formGroup.controls['schoolType'].errors?.['required']">Vous devez choisir un type d'établissement</li>
   <li *ngIf="formGroup.controls['phoneNumber'].errors?.['required']">Vous devez saisir un numéro de téléphone</li>
 </ul>
-
-<br>
+<div class="wrapper">
 
 <form [formGroup]="formGroup" (ngSubmit)="submitFormAddSchool()">
   <div>
@@ -43,15 +41,26 @@
 
   <br>
 
-  <div>
-    <label for="logo">Logo:</label>
-    <input type="text" id="logo" formControlName="logo">
+  <div class="form-group">
+    <label for="logo">Veuillez télécharger votre logo:</label>
+    <input type="file" name="logo" formControlName="logo" id="logo"(change)="onFileChanged($event)">
+    <button type="button" name="logo" formControlName="logo" id="logoValid" (click)="onUpload()" value="upload">Valider</button>
+    <!--    <input type="file" name="logo" formControlName="logo" id="logo" accept="image/png, image/jpeg">-->
+    <!--    <input type="button" (click)="imageUploadAction()" value="Upload Image" class="btn1">-->
   </div>
-  <br>
+
+
+<!--  <div>-->
+<!--    <label for="logo">Logo:</label>-->
+<!--    <input type="text" id="logo" formControlName="logo">-->
+<!--  </div>-->
+
+
+
   <button type="submit">Ajouter</button>
 </form>
-
-<pre>
-  {{formGroup.value|json}}
-  {{formGroup.valid|json}}
-</pre>
+</div>
+<!--<pre>-->
+<!--  {{formGroup.value|json}}-->
+<!--  {{formGroup.valid|json}}-->
+<!--</pre>-->

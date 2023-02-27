@@ -1,8 +1,7 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<br>
-<h3 class="text-center">Liste des matieres</h3>
-<br>
-<li class="text-center"><a [routerLink]="['/schools/',schoolID,'lessons','add']">Ajouter une matiere</a></li>
+<h3 class="text-center">Liste des matières</h3>
+
+<li class="text-center"><a [routerLink]="['/schools/',schoolID,'lessons','add']">Ajouter une matière</a></li>
 <br>
 <table  *ngIf="lessons.length > 0" class="table table-striped">
   <thead>
@@ -10,6 +9,7 @@
     <th>Id</th>
     <th>Nom</th>
     <th>Couleur</th>
+    <th class="button"></th>
   </tr>
   </thead>
   <tbody>
@@ -17,9 +17,10 @@
     <td>{{ lesson.id }}</td>
     <td>{{ lesson.name }}</td>
     <td>{{ lesson.color }}</td>
-    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'lessons',lesson.id]">Details</button></td>
+    <button type="button" class="btn btn-primary" [routerLink]="['/schools/',schoolID,'lessons',lesson.id]">Details</button>
   </tbody>
 </table>
 <div *ngIf="lessons.length === 0">
   Il n'y a aucune lesson enseigée dans cet établissement
 </div>
+

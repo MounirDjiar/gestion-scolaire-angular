@@ -1,0 +1,144 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+.card text-black mb-3{
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 62.5%;
+  color: lightsteelblue;
+  /*display: flex;!**!*/
+  /*flex-wrap: wrap;!**!*/
+
+}
+
+a{
+  font-size: 12px;
+  text-decoration: none;
+}
+
+#section{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*display: flex;!**!*/
+  /*flex-wrap: wrap;!**!*/
+
+}
+
+.card{
+  background-color: lightsteelblue;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 1200px;
+  border-radius: 4px;
+  /*width: 1000px;*/
+  display: flex;
+}
+
+.card-hero{
+  flex: 0 0 50%;
+  position: relative;
+  /*width: 50%; !**!*/
+  /*padding: 20px;!**!*/
+}
+.card-img{
+  display: block;
+  width: 15%;
+  /*padding: 0;!**!*/
+  /*margin: 0; !**!*/
+}
+img{
+  width: 40px;
+  height: auto;
+  /*padding:0;!**!*/
+  /*margin: 0;!**!*/
+}
+.card-middle{
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-middle-text{
+  background-color: white;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 2px;
+  padding: 10px 22px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+
+}
+.card-content {
+  flex: 1;
+  padding: 20px 35px 20px 35px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  /*width: 50%; !**!*/
+  /*padding: 50px;!**!*/
+}
+.card-info{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: auto;
+  margin-left: 500px;
+}
+
+.card-name{
+  /*font-weight: 500;*/
+  letter-spacing: 1px;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.card-type{
+  font-size: 14px;
+  font-width: 300;
+  margin-bottom: 8px;
+}
+
+.card-phone{
+font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.card-address{
+  font-size: 14px;
+  font-width: 300;
+  margin-bottom: 8px;
+}
+
+.card-button{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+button{
+  background-color: #333333;
+  padding: 10px 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.btn btn-primary{
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.2);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom .4s;
+}
+
+.card-button:hover{
+  margin-right: 10px;
+
+}
+
+

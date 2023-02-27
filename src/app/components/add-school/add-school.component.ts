@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import { SchoolType } from '../../../services/school-type';
 import {SchoolService} from "../../../services/school.service";
+import {LogoService} from "../../../services/logo.service";
 
 @Component({
   selector: 'app-add-school',
@@ -19,10 +20,14 @@ export class AddSchoolComponent implements OnInit {
   // Form has been submitter or not
   formAlreadySubmitted: boolean = false;
 
+  uploadedLogo!: File;
+
   constructor(
     private fb: FormBuilder,
     private schoolService: SchoolService,
-    private router: Router) {
+    private router: Router,
+  private logoService: LogoService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -46,8 +51,34 @@ export class AddSchoolComponent implements OnInit {
 
     // If the form is valid
     if(this.formGroup.valid) {
+
+      // console.log(this.uploadedLogo);
+      // const uploadImageData = new FormData();
+      // uploadImageData.append('imageFile', this.uploadedLogo, this.uploadedLogo.name);
+      // console.log(uploadImageData);
+      // this.logoService.addLogo(uploadImageData)
+      //   .subscribe();
+
       this.schoolService.addSchool(this.formGroup.value)
         .subscribe(school => this.router.navigateByUrl('/schools'));
     }
+  }
+
+
+  //Gets called when the user selects an image
+  public onFileChanged(event: any) {
+    this.uploadedLogo = event.target.files[0];
+  }
+
+
+
+  // Gets called when the user clicks on submit to upload the image
+  onUpload() {
+    console.log(this.uploadedLogo);
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.uploadedLogo, this.uploadedLogo.name);
+    console.log(uploadImageData);
+    this.logoService.addLogo(uploadImageData)
+      .subscribe(logo => this.router.navigateByUrl('/schools'));
   }
 }

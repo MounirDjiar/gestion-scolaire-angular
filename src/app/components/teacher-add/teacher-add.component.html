@@ -12,7 +12,7 @@
   <li *ngIf="Form.controls['lessons'].errors?.['max']">Le nombre de matières enseignées doit être compris entre 1 et 3</li>
   -->
 </ul>
-<br>
+<div class="wrapper">
 <form (ngSubmit)="submitForm()" [formGroup]="form">
   <div id="teacherFirstName">
     <label for="firstName">Prénom du professeur</label>
@@ -54,16 +54,16 @@
   <br>
   <button type="submit">Ajouter</button>
 </form>
+</div>
+
+<!--<pre>-->
+<!--    {{lessons.at(0).value["id"]}}-->
+<!--  </pre>-->
 
 
-<pre>
-    {{lessons.at(0).value["id"]}}
-  </pre>
+<!--<pre>-->
+<!--    {{form.value | json}}-->
+<!--  </pre>-->
 
-
-<pre>
-    {{form.value | json}}
-  </pre>
-
-Form status: {{form.valid | json}}
+<!--Form status: {{form.valid | json}}-->
 
