@@ -1,11 +1,11 @@
-<h1>LISTE DES ETABLISSEMENTS</h1>
+<h2 align="center">LISTE DES ETABLISSEMENTS</h2>
 
 <div *ngIf="schoolsList.length > 0">
-  <app-school *ngFor="let school of schoolsList"
-                [school]="school"
-  ></app-school>
+<app-school *ngFor="let school of schoolsList"
+            [school]="school"
+></app-school>
 </div>
 
 <div *ngIf="schoolsList.length === 0">
-  <p>Il n'y a aucun établissement dans la liste</p>
+<p>Il n'y a aucun établissement dans la liste</p>
 </div>

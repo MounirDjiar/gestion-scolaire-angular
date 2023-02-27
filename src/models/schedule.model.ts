@@ -2,6 +2,7 @@ import {Lesson} from "./lesson.model";
 import {Teacher} from "./teacher.model";
 import {Classroom} from "./classroom.model";
 import {Clazz} from "./clazz.model";
+import {School} from "./school.model";
 
 export interface Schedule {
   id?: number
@@ -12,4 +13,5 @@ export interface Schedule {
   teacher: Teacher
   classroom: Classroom
   clazz: Clazz
+  school: School
 }

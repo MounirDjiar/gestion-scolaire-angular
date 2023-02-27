@@ -1,5 +1,6 @@
 <app-menu [schoolID]="schoolID"></app-menu>
 <br>
+
 <h3 class="text-center">Ajouter une matière</h3>
 <li class="text-center"><a [routerLink]="['/schools/', schoolID,'lessons']">Liste des matières</a></li>
 <ul *ngIf="formSubmitted" class="text-md-start">
@@ -14,8 +15,8 @@
   </div>
   <br>
   <div id="lessonColor">
-    <label for="color">Couleur de la matière</label>
-    <input formControlName="color" id="color" type="text">
+    <label for="lesson-color">Couleur de la matière</label>
+    <input formControlName="color" id="lesson-color" type="color" (change)="onColorChange($event)">
   </div>
   <button type="submit">Send</button>
 </form>
@@ -23,5 +24,3 @@
   {{Form.value | json}}
 </pre>
 Form status: {{Form.valid | json}}
-
-

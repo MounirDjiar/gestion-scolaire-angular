@@ -22,27 +22,31 @@
           <input formControlName="endingHour" type="time" id="fin" name="fin" class="form-control" min="09:00" max="18:00" required>
         </div>
         <br>
-        <div class="form-group" formGroupName="clazz">
+
+        <div *ngIf="displayClazzs && typePlanning !== 'clazz'" class="form-group" formGroupName="clazz">
           <label>Classe:</label>
           <select class="form-control" formControlName="id" (ngModelChange)="clazzSelected($event)">
             <option *ngFor="let clazz of clazzsList" [value]="clazz.id">{{ clazz.name }}</option>
           </select>
+          <br>
         </div>
-        <br>
+
         <div *ngIf="displayLessons" class="form-group" formGroupName="lesson">
           <label>Matière:</label>
           <select class="form-control" formControlName="id" (ngModelChange)="lessonSelected($event)">
             <option *ngFor="let lesson of lessonsList" [value]="lesson.id">{{ lesson.name }}</option>
           </select>
+          <br>
         </div>
-        <br>
-        <div *ngIf="displayTeachers" class="form-group" formGroupName="teacher">
+
+        <div *ngIf="displayTeachers && typePlanning !== 'teacher'" class="form-group" formGroupName="teacher">
           <label>Professeur:</label>
           <select class="form-control" formControlName="id" (ngModelChange)="teacherSelected($event)">
             <option *ngFor="let teacher of teachersList" [value]="teacher.id">{{ teacher.lastName }}</option>
           </select>
+          <br>
         </div>
-        <br>
+
         <div *ngIf="displayClassrooms" class="form-group"  formGroupName="classroom">
           <label>Salle de classe:</label>
           <select class="form-control" formControlName="id" (ngModelChange)="classroomSelected($event)">
@@ -65,5 +69,5 @@
                [options]="calendarOptions"
                (select)="handleSelect($event)">
 </full-calendar>
-
-<pre>{{form.value | json}}</pre>
+<br>
+<button (click)="generatePDF()">Exporter en PDF</button>

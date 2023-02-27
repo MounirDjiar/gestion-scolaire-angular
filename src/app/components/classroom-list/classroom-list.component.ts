@@ -34,8 +34,10 @@ export class ClassroomListComponent implements OnInit {
 
   generatePdf() {
     const headers = ['Nom', 'Capacité', 'Matieres exclues'];
-    const data = this.classrooms.map(({name, capacity, excludedLessons }) => ({ name, capacity, excludedLessons }));
+    const data = this.classrooms.map(({name, capacity, excludedLessons }) => ({ name, capacity, excludedLessons: excludedLessons.map(({ name }) => name).join(', ')
+    }));
+    const title = 'Liste des salles de classe';
     const fileName = 'liste-des-salles-de-classe';
-    this.pdfGeneratorService.generatePDF(data, headers, fileName);
+    this.pdfGeneratorService.generatePDF(data, headers, fileName, title);
   }
 }

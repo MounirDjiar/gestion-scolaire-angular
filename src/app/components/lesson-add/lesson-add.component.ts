@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgModule, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Lesson} from "../../../models/lesson.model";
 import {LessonService} from "../../../services/lesson.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment.development";
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class LessonAddComponent implements OnInit {
               private lessonService: LessonService,
               private router: Router,
               private activatedRoute: ActivatedRoute
-    ){
+  ){
   }
   ngOnInit(): void {
 
@@ -37,6 +38,7 @@ export class LessonAddComponent implements OnInit {
       })
     })
   }
+
   submitForm() {
     this.formSubmitted = true
     if (this.Form.valid) {
@@ -49,5 +51,7 @@ export class LessonAddComponent implements OnInit {
       }
     }
   }
+  onColorChange(event: any) {
+    this.Form.controls['color'].setValue(event.color.hex);
+  }
 }
-

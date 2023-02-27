@@ -34,10 +34,16 @@ export class TeacherListComponent implements OnInit {
   }
 
   generatePdf() {
-    const headers = ['Prenom', 'Nom', 'Date de naissance', 'Matieres enseignées'];
-    const data = this.teachers.map(({firstName, lastName, dob, lessons }) => ({ firstName, lastName, dob, lessons }));
+    const headers = ['Prenom', 'Nom', 'DOB', 'Matieres enseignees'];
+    const data = this.teachers.map(({ firstName, lastName, dob, lessons }) => ({
+      firstName,
+      lastName,
+      dob,
+      lessons: lessons.map(({ name }) => name).join(', ')
+    }));
+    const title = 'Liste des professeurs';
     const fileName = 'liste-des-professeurs';
-    this.pdfGeneratorService.generatePDF(data, headers, fileName);
+    this.pdfGeneratorService.generatePDF(data, headers, fileName, title);
   }
 
 }
