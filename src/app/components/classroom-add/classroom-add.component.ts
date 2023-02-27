@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Classroom} from "../../../models/classroom.model";
 import {Lesson} from "../../../models/lesson.model";
 import {ClassroomService} from "../../../services/classroom.service";
@@ -7,9 +7,6 @@ import {LessonService} from "../../../services/lesson.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment.development";
 import {SchoolService} from "../../../services/school.service";
-import {forkJoin, Observable, of} from "rxjs";
-import {ClassroomClass} from "../../../classes/classroom.class";
-import {School} from "../../../models/school.model";
 
 @Component({
   selector: 'app-classroom-add',
@@ -18,111 +15,63 @@ import {School} from "../../../models/school.model";
 })
 export class ClassroomAddComponent implements OnInit {
 
-  Form!: FormGroup
+  form!: FormGroup
   formSubmitted = false
   classrooms: Classroom[] = []
-  lessons: Lesson[] = []
-  lsns: Lesson[] = []
-  excludedLessons: Lesson[] = []
-  authorisedLessons: Lesson[] = []
-
   lessonsList: Lesson[] = []
-
-  authorisedLessonsFiltered: Lesson[] = []
-  classroom!: Classroom
   schoolID! : string
-  school!: School
-  lesson!: Lesson
-  lessonId!: Lesson
 
   constructor(private formBuilder: FormBuilder,
               private classroomService: ClassroomService,
               private schoolService: SchoolService,
-              private lessonService: LessonService,
               private router: Router,
               private activatedRoute: ActivatedRoute
       ) {
   }
-
-
-
   ngOnInit(): void {
 
     // Get school id from url
     this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
 
-/* ****** Defines property of form fields ****** */
-    this.Form = this.formBuilder.group({
-      name: [null, Validators.required],
-      excludedLessons: [],
-      capacity: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
-      // school: this.schoolService.findById(+this.schoolID)
-    })
-
-/* ***Displays only lessons related to schoolId*** */
     this.schoolService.findLessonsBySchoolId(Number(this.schoolID)).subscribe(
       lessonsList => {
-        this.lessonsList= lessonsList;
-        // console.log(this.lessonsList)
+        this.lessonsList = lessonsList;
       });
 
-// /* ***Call assigned lessons of selected excludedLessons**** */
-//     this.lessonService.getOne(this.lesson.id).subscribe(
-//       lesson => {
-//         this.lesson = lesson;
-//         this.excludedLessons.push(this.lesson)
-//         console.log(this.excludedLessons)
-//       }
-//     );
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      capacity: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+      excludedLessons: this.formBuilder.array([]),
+      school: this.formBuilder.group({
+        id: this.schoolID
+      })
+    })
 
-/* ***Call assigned school of schoolId*** */
-    this.schoolService.findById(Number(this.schoolID)).subscribe(
-      school => {
-        this.school = school;
-      });
+    // To choose at least one lesson
+    this.addNewExcludedLesson();
   }
 
+  get lessons() {
+    return this.form.controls["excludedLessons"] as FormArray;
+  }
 
+  addNewExcludedLesson() {
+    let lessonForm = this.formBuilder.group({
+      id: new FormControl(''),
+    });
 
+    this.lessons.push(lessonForm);
+  }
 
-
-  ngOnSubmit() {
-    this.formSubmitted = true;
-    if (this.Form.valid) {
-
-/* *** Iterate on selected excludedLessons to fill out excludedLessons and authorisedLesson attributes of classroom object below*** */
-      for (this.lessonId of this.Form.get('excludedLessons')?.value)
-      {
-        // console.log(this.lessonId)
-        this.lessonService.getOne(+this.lessonId).subscribe(
-          lsn => {
-            this.lesson = lsn;
-            // console.log(this.excludedLessons);
-            this.excludedLessons.push(lsn);
-            // console.log(this.excludedLessons);
-            this.authorisedLessonsFiltered = this.authorisedLessons.filter(authLesson => authLesson.id !== lsn.id)
-            // console.log(this.authorisedLessonsFiltered)
-          });
-      }
-
-/* **** Create the object classroom with selected elements before sending it to backend **** */
-      this.classroom = new ClassroomClass(
-        0,
-        this.Form.get('name')?.value,
-        this.Form.get('capacity')?.value,
-        this.excludedLessons,
-        this.authorisedLessons,
-        this.school)
-
+  submitForm() {
+    this.formSubmitted = true
+    if (this.form.valid) {
       if (environment.production) {
-        this.classroomService.add(this.classroom).subscribe(() => {
+        this.classroomService.add(this.form.value).subscribe(() => {
           this.router.navigateByUrl(`/schools/${this.schoolID}/classrooms`);
-        console.log(this.classroom);
         });
-
       } else {
-
-        console.log('Form data:', this.Form.value,this.schoolID);
+        console.log('Form data:', this.form.value);
       }
         }    }
 }

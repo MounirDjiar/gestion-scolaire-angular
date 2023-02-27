@@ -1,18 +1,35 @@
-<body>
-  <h1 class="text-center">BIENVENUE</h1>
-  <a routerLink="/schools/add" >Ajouter un établissement</a>
-    <div class="container">
-      <img class="wave" id="box" src="../../../assets/images/welcome-logo.png">
-      <div class="school-container" id="box">
-        <form [formGroup]="formGroup" (ngSubmit)="submitFormSelectSchool()">
-          <div id="schools">
-            <label>Veuillez sélectionner un établissement</label>
-            <select formControlName="schoolId" >
-              <option *ngFor="let school of schoolsList" value="{{school?.id}}"> {{school?.name}}</option>
-            </select>
-          </div>
-          <button type="submit">Gérer</button>
-        </form>
-      </div>
-    </div>
-</body>
+<!--
+<br>
+<h3 class="text-center">Gestion des établissement</h3>
+<br>
+
+<form [formGroup]="formGroup" (ngSubmit)="submitFormSelectSchool()">
+  <br>
+  <div id="schools">
+    <label>Veuillez selectionner un établissement</label>
+    <select formControlName="schoolId" >
+      <option *ngFor="let school of schoolsList" value="{{school?.id}}"> {{school?.name}}</option>
+    </select>
+  </div>
+  <br>
+  <br>
+  <button type="submit">Gérer cet établissement</button>
+</form>
+<br>
+<li class="text-center"><a [routerLink]="['/schools/','add']">Ajouter un établissement</a></li>
+<br>
+-->
+<div class="card text-black mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{school?.name}}</h5>
+    <p class="card-text">
+      Type d'établissement': {{school?.schoolType}}<br>
+      Adresse: {{school?.address}}<br>
+      Numéro de téléphone: {{school?.phoneNumber}}<br>
+      Logo: {{school?.logo}}
+    </p>
+    <button [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gérer cet établissement</button>
+  </div>
+</div>
+
+Message @Jérôme Laigle

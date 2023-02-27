@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SchoolListComponent} from "./components/school-list/school-list.component";
-import {AddSchoolComponent} from "./components/school-add/add-school.component";
+import {AddSchoolComponent} from "./components/add-school/add-school.component";
 import {SchoolComponent} from "./components/school/school.component";
 import {SchoolDetailsComponent} from "./components/school-details/school-details.component";
 import { HomeComponent } from './components/home/home.component';
@@ -26,10 +26,13 @@ import { LessonListComponent } from './components/lesson-list/lesson-list.compon
 import { LessonAddComponent } from './components/lesson-add/lesson-add.component';
 import { LessonDetailsComponent } from './components/lesson-details/lesson-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
-import {MatNativeDateModule} from "@angular/material/core";
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatMomentDateModule, MomentDateModule} from "@angular/material-moment-adapter";
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDateFormats, MatNativeDateModule} from "@angular/material/core";
+import interactionPlugin from "@fullcalendar/interaction";
 
 const routes: Routes = [
 
@@ -52,17 +55,30 @@ const routes: Routes = [
   {path: 'schools/:schoolId/clazzs', component: ClazzListComponent},
   {path: 'schools/:schoolId/clazzs/add', component: ClazzAddComponent},
   {path: 'schools/:schoolId/clazzs/:id', component: ClazzDetailsComponent},
-  {path: 'schools/:schoolId/clazzs/:id/schedule', component: ScheduleComponent},
+  {path: 'schools/:schoolId/clazzs/:id/:type/schedules', component: ScheduleComponent},
 
   // TEACHERS
   {path: 'schools/:schoolId/teachers', component: TeacherListComponent},
   {path: 'schools/:schoolId/teachers/add', component: TeacherAddComponent},
   {path: 'schools/:schoolId/teachers/:id', component: TeacherDetailsComponent},
-  {path: 'schools/:schoolId/teachers/:id/schedule', component: ScheduleComponent},
+  {path: 'schools/:schoolId/teachers/:id/:type/schedules', component: ScheduleComponent},
 
-  {path: 'home', component: HomeComponent},
+  // HOME
+  {path: 'home', component: SchoolListComponent},
   {path: '', redirectTo: 'home', pathMatch: "full"}
 ]
+
+const MY_FORMAT: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -86,7 +102,6 @@ const routes: Routes = [
     SchoolListComponent,
     SchoolDetailsComponent,
     SchoolComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -99,10 +114,21 @@ const routes: Routes = [
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
+    BrowserAnimationsModule,
+    MomentDateModule,
+    MatDatepickerModule,
+    MatMomentDateModule
+
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMAT }
   ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }
+
+

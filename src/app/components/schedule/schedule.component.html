@@ -1,6 +1,73 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<p> Classe 6ème B (TODO : Rajouter la dépendances pour afficher la bonne classe d'élèves)</p>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajouter un créneau</h4>
+  </div>
+  <div class="modal-body">
+
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label>Jour:</label>
+          <input formControlName="day" type="date" id="day" name="day" class="form-control">
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Heure de début:</label>
+          <input formControlName="startingHour" type="time" id="debut" name="debut" class="form-control" min="09:00" max="18:00" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label>Heure de fin:</label>
+          <input formControlName="endingHour" type="time" id="fin" name="fin" class="form-control" min="09:00" max="18:00" required>
+        </div>
+        <br>
+
+        <div *ngIf="displayClazzs && typePlanning !== 'clazz'" class="form-group" formGroupName="clazz">
+          <label>Classe:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="clazzSelected($event)">
+            <option *ngFor="let clazz of clazzsList" [value]="clazz.id">{{ clazz.name }}</option>
+          </select>
+          <br>
+        </div>
+
+        <div *ngIf="displayLessons" class="form-group" formGroupName="lesson">
+          <label>Matière:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="lessonSelected($event)">
+            <option *ngFor="let lesson of lessonsList" [value]="lesson.id">{{ lesson.name }}</option>
+          </select>
+          <br>
+        </div>
+
+        <div *ngIf="displayTeachers && typePlanning !== 'teacher'" class="form-group" formGroupName="teacher">
+          <label>Professeur:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="teacherSelected($event)">
+            <option *ngFor="let teacher of teachersList" [value]="teacher.id">{{ teacher.lastName }}</option>
+          </select>
+          <br>
+        </div>
+
+        <div *ngIf="displayClassrooms" class="form-group"  formGroupName="classroom">
+          <label>Salle de classe:</label>
+          <select class="form-control" formControlName="id" (ngModelChange)="classroomSelected($event)">
+            <option *ngFor="let classroom of classroomsList" [value]="classroom.id">{{ classroom.name }}</option>
+          </select>
+        </div>
+      </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="createEvent()">Create</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
+  </div>
+
+</ng-template>
+
+<button (click)="open(content)" class="btn btn-outline-danger" style="margin-top: 15px">Creer schedule</button>
+
 <full-calendar #calendar
                [options]="calendarOptions"
                (select)="handleSelect($event)">
 </full-calendar>
+<br>
+<button (click)="generatePDF()">Exporter en PDF</button>

@@ -29,7 +29,7 @@ export class ClazzDetailsComponent implements OnInit {
       this.clazzService.delete(this.clazz.id)
         .subscribe(value => {
           this.currentModal?.close()
-          this.router.navigateByUrl('/clazzs')
+          this.router.navigateByUrl(`schools/${this.schoolID}/clazzs`)
         })
     } else {
       console.log('clazz deleted !');
