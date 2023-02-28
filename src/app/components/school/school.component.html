@@ -1,12 +1,29 @@
-<div class="card text-black mb-3">
-  <div class="card-body">
-    <h5 class="card-title">{{school?.name}}</h5>
-    <p class="card-text">
-      Type d'établissement': {{school?.schoolType}}<br>
-      Adresse: {{school?.address}}<br>
-      Numéro de téléphone: {{school?.phoneNumber}}<br>
-      Logo: {{school?.logo}}
-    </p>
-    <button [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gerer cet établissement</button>
+<div class="section">
+  <div class="card text-black mb-3">
+    <div class="card-hero">
+<!--      <img class="card-img" src="/assets/images/home-icon.png"/>-->
+<!--      <div class="card-middle">-->
+<!--&lt;!&ndash;        <p class="card-middle-text">{{school?.name}}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button class="card-middle-text" [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gerer cet établissement</button>&ndash;&gt;-->
+<!--      </div>-->
+    </div>
+    <div class="card-content">
+      <div class="card-info">
+        <h5 class="card-name">{{school?.name}}</h5>
+        <p class="card-type"><b>Type d'établissement:</b> {{school?.schoolType}}</p>
+        <p class="card-phone"><b>Numéro de téléphone: </b>  {{school?.phoneNumber}}</p>
+        <p class="card-address"><b>Numéro de téléphone: </b> {{school?.address}}</p>
+      </div>
+<!--      <h5 class="card-title">{{school?.name}}</h5>-->
+<!--      <p class="card-text">-->
+<!--        Type d'établissement': {{school?.schoolType}}<br>-->
+<!--        Adresse: {{school?.address}}<br>-->
+<!--        Numéro de téléphone: {{school?.phoneNumber}}<br>-->
+<!--        Logo: {{school?.logo}}-->
+<!--      </p>-->
+      <div class="card-button">
+      <button [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gérer cet établissement</button>
+      </div>
+    </div>
   </div>
 </div>

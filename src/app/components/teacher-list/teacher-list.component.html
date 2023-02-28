@@ -4,10 +4,9 @@
 <br>
 <li class="text-center"><a [routerLink]="['/schools/', schoolID, 'teachers', 'add']">Ajouter un(e) professeur(e)</a></li>
 <br>
-<table class="table table-striped">
+<table *ngIf="teachers.length > 0" class="table table-striped">
   <thead>
   <tr>
-    <th>Id</th>
     <th>Prenom</th>
     <th>Nom</th>
     <th>Date de naissance</th>
@@ -16,24 +15,24 @@
   </thead>
   <tbody>
   <tr *ngFor="let teacher of teachers">
-    <td>{{ teacher.id }}</td>
     <td>{{ teacher.firstName }}</td>
     <td>{{ teacher.lastName }}</td>
     <td>{{ teacher.dob }}</td>
     <td>
-      <ul *ngIf="teacher.lessons.length > 0" #lessons>
-        <li *ngFor="let lesson of teacher.lessons">{{lesson.name}}</li>
-      </ul>
+      <div *ngIf="teacher.lessons.length > 0" #lessons>
+        <span *ngFor="let lesson of teacher.lessons">{{lesson.name}} / </span>
+      </div>
       <ul *ngIf="teacher.lessons.length === 0" #lessons>
         Aucune matière enseignée
       </ul>
     </td>
-    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Details</button></td>
+    <td><button type="button" class="btn btn-primary" [routerLink]="['/schools/', schoolID, 'teachers', teacher.id]">Détails</button></td>
     <td><button type="button" class="btn btn-info" [routerLink]="['/schools/',schoolID,'teachers',teacher.id, 'teacher', 'schedules']">Planning</button></td>
   </tr>
   </tbody>
 </table>
-<div *ngIf="teachers.length === 0">
+<div *ngIf="teachers.length === 0"  style="text-align: center">
   Il n'y a aucun enseignant dans cet établissement
 </div>
+<br>
 <button *ngIf="teachers.length > 0" type="button" class="btn btn-secondary" (click)="generatePdf()">Exporter en PDF</button>

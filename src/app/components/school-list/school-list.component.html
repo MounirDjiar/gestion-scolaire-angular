@@ -1,11 +1,10 @@
-<h2 align="center">LISTE DES ETABLISSEMENTS</h2>
-
+<h2 class="text-center">Liste des établissements</h2>
+<a routerLink="/schools/add" >Ajouter un établissement</a>
 <div *ngIf="schoolsList.length > 0">
 <app-school *ngFor="let school of schoolsList"
             [school]="school"
 ></app-school>
 </div>
-
-<div *ngIf="schoolsList.length === 0">
+<div *ngIf="schoolsList.length === 0"  style="text-align: center">
 <p>Il n'y a aucun établissement dans la liste</p>
 </div>

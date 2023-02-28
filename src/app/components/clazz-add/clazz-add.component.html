@@ -1,12 +1,11 @@
 <app-menu [schoolID]="schoolID"></app-menu>
-<br>
 <h3 class="text-center">Ajouter une classe</h3>
 <li class="text-center"><a [routerLink]="['/schools/', schoolID, 'clazzs']">Liste des classes</a></li>
 <ul *ngIf="formSubmitted" class="text-md-start">
   <li *ngIf="Form.controls['name'].errors?.['required']">Veuillez entrer le nom de la classe</li>
   <li *ngIf="Form.controls['mainTeacher'].errors?.['required']">Veuillez entrer le nom du professeur principal</li>
 </ul>
-<br>
+<div class="wrapper">
 <form (ngSubmit)="submitForm()" [formGroup]="Form">
   <div id="clazzName">
     <label for="name">Nom de la classe</label>
@@ -15,15 +14,16 @@
   <br>
 
   <div id="clazzMainTeacher" formGroupName="mainTeacher">
-    <label for="mainTeacher">Veuillez selectionner le/la professeur(e) principal(e) de cette classe</label>
+    <label for="mainTeacher">Le/la professeur(e) principal(e) de cette classe</label>
     <select formControlName="id" id="mainTeacher">
       <option *ngFor="let teacher of teachers" value="{{teacher.id}}">{{teacher.firstName}} {{teacher.lastName}}</option>
     </select>
   </div>
-  <br>
-  <button type="submit">Send</button>
+  <button type="submit">Ajouter</button>
 </form>
-<pre>
-  {{Form.value | json}}
-</pre>
-Form status: {{Form.valid | json}}
+</div>
+
+<!--<pre>-->
+<!--  {{Form.value | json}}-->
+<!--</pre>-->
+<!--Form status: {{Form.valid | json}}-->

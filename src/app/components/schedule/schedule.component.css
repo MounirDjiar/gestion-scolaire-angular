@@ -1,0 +1,7 @@
+button{
+  padding: 5px 20px;
+  background: lightsteelblue;
+  border: darkslateblue;
+  color: #333333;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}

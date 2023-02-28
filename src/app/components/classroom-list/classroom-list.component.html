@@ -7,7 +7,6 @@
 <table  *ngIf="classrooms.length > 0" class="table table-striped">
   <thead>
   <tr>
-    <th>Id</th>
     <th>Nom</th>
     <th>Cours exclus</th>
     <th>Capacite</th>
@@ -15,12 +14,12 @@
   </thead>
   <tbody>
   <tr *ngFor="let classroom of classrooms">
-    <td>{{ classroom.id }}</td>
+
     <td>{{ classroom.name }}</td>
     <td>
-      <ul *ngIf="classroom.excludedLessons.length > 0" #excludedLessons>
-        <li *ngFor="let excluded of classroom.excludedLessons">{{excluded.name}}</li>
-      </ul>
+      <div *ngIf="classroom.excludedLessons.length > 0" #excludedLessons>
+        <span *ngFor="let excluded of classroom.excludedLessons">{{excluded.name}} / </span>
+      </div>
       <ul *ngIf="classroom.excludedLessons.length === 0" #excludedLessons>
           Tous les cours sont permis
       </ul>
@@ -30,7 +29,8 @@
   </tr>
   </tbody>
 </table>
-<div *ngIf="classrooms.length === 0">
+<div *ngIf="classrooms.length === 0"  style="text-align: center">
   Il n'y a aucune salle de classe dans cet établissement
 </div>
+<br>
 <button *ngIf="classrooms.length > 0" type="button" class="btn btn-secondary" (click)="generatePdf()">Exporter en PDF</button>

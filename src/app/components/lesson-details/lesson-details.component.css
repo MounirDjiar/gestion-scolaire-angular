@@ -1,21 +1,54 @@
-ul {
-  margin: 20px 500px;
-}
-#btnDelete {
-  margin: 20px 500px;
-}
-#details{
-  border: solid 1px black;
-  padding: 10px 0;
+*{
+  margin-right: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
 
-li {
-  list-style: none;
-}
-li a {
+a{
+  padding: 5px;
+  font-size: 15px;
   text-decoration: none;
 }
 li a:hover {
   background-color: dodgerblue;
   color: white;
 }
+
+img{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: auto;
+  margin-top: 30px;
+  margin-left: 540px ;
+  margin-bottom: 20px;
+}
+
+ul{
+  margin-top: 50px;
+  text-align: left;
+}
+
+#details {
+  text-align: center;
+  width: 200px;
+  margin: 0 auto;
+}
+
+#btnDelete {
+  margin-top: 70px;
+  margin-left: 490px;
+  padding: 5px 10px;
+}
+
+.modal-header, .modal-body{
+  padding: 10px 20px;
+}
+.modal-footer button{
+  padding: 2px 5px;
+}
+

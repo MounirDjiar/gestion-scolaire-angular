@@ -7,6 +7,7 @@ import {Teacher} from "../models/teacher.model";
 import {Classroom} from "../models/classroom.model";
 import {Clazz} from "../models/clazz.model";
 import {Lesson} from "../models/lesson.model";
+import {School} from "../models/school.model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,11 @@ export class ScheduleService {
 
   add(value: Schedule): Observable<Schedule> {
     return this.httpSchedule.post<Schedule>(`${this.apiUrl}`, value)
+  }
+
+
+  public findById(id?: number): Observable<Schedule> {
+    return this.httpSchedule.get<Schedule>(`${this.apiUrl}/${id}`);
   }
 
   delete(id: number): Observable<void> {
@@ -37,7 +43,6 @@ export class ScheduleService {
   findTeachersByLessonId(schoolID: number, lessonID: number) : Observable<Teacher[]> {
     return this.httpSchedule.get<Teacher[]>(`http://localhost:8087/gestionscolaire/teachers/lessons/${lessonID}`);
   }
-
 
   findSchedulesBySchoolIDAndClazzID(schoolID: number, clazzId: number) : Observable<Schedule[]> {
       return this.httpSchedule.get<Schedule[]>(`http://localhost:8087/gestionscolaire/schools/${schoolID}/schedules/clazzs/${clazzId}`);

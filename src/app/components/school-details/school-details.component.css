@@ -1,21 +1,73 @@
-ul {
-  margin: 20px 500px;
-}
-#btnDelete {
-  margin: 20px 500px;
-}
-#details{
-  border: solid 1px black;
-  padding: 10px 0;
+*{
+  margin-right: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
 }
 
-li {
-  list-style: none;
+body{
+  /*background: linear-gradient(to bottom, #F8F8F8, #ECECEC)*/
 }
-li a {
-  text-decoration: none;
+
+#logo{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: auto;
+  margin-top: 30px;
+  margin-left: 530px ;
+  border-radius: 50%;
 }
-li a:hover {
-  background-color: dodgerblue;
-  color: white;
+
+h3{
+  /*padding-top: 30px;*/
+  font-size: 40px;
+}
+ul{
+  margin: 50px 0;
+  margin-left: 450px;
+}
+.total-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*min-height: 400px;*/
+}
+.card{
+  text-align: center;
+  height:200px;
+  width: 180px;
+  padding-left: 25px;
+  background: white;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  margin-bottom: 35px;
+}
+
+.card img{
+
+  text-align: center;
+  display: block;
+  text-align: center;
+  margin-left:50px;
+  margin-top: 20px;
+  color: #333333;
+  width: 30px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.card-text {
+  font-size: 13px;
+  color: #333333;
+  padding-left: 20px;
+}
+
+.number{
+  color: #333333;
+  padding-left: 45px;
+  padding-top: 10px;
 }
