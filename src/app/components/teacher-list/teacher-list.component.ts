@@ -30,6 +30,7 @@ export class TeacherListComponent implements OnInit {
     this.schoolService.findTeachersBySchoolId(Number(this.schoolID)).subscribe(
       teachers => {
         this.teachers = teachers;
+        console.log(this.teachers);
       });
   }
 
