@@ -1,6 +1,8 @@
 body {
-  width: 1400px;
+  width: 1200px;
   margin: 20px auto;
+  left: 300px;
+  position: absolute;
 }
 
 /* Add application styles & imports to this file! */

@@ -19,6 +19,38 @@
 <li class="text-center"><a [routerLink]="['/schools/','add']">Ajouter un établissement</a></li>
 <br>
 -->
+
+
+
+
+<!--<div class="section">-->
+<!--<figure class="card">-->
+<!--  <div class="card-hero">-->
+<!--    <img class="card-img" src="assets/images/home-icon.png" alt="">-->
+<!--    <div class="card-middle">-->
+<!--      <p class="card-middle-text">{{school?.name}}</p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="card-body">-->
+<!--    <h5 class="card-title">{{school?.name}}</h5>-->
+<!--    <p class="card-text">-->
+<!--      Type d'établissement': {{school?.schoolType}}<br>-->
+<!--      Adresse: {{school?.address}}<br>-->
+<!--      Numéro de téléphone: {{school?.phoneNumber}}<br>-->
+<!--      Logo: {{school?.logo}}-->
+<!--    </p>-->
+<!--    <button [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gérer cet établissement</button>-->
+<!--  </div>-->
+<!--  <div class="card-img">-->
+<!--    <img src="assets/images/home-icon.png" alt="">-->
+<!--  </div>-->
+<!--</figure>-->
+<!--</div>-->
+
+
+
+
+
 <div class="card text-black mb-3">
   <div class="card-body">
     <h5 class="card-title">{{school?.name}}</h5>
@@ -30,6 +62,7 @@
     </p>
     <button [routerLink]="['/schools', school?.id]" type="button" class="btn btn-primary">Gérer cet établissement</button>
   </div>
+  <div class="card-img">
+    <img src="assets/images/home-icon.png" alt="">
+  </div>
 </div>
-
-Message @Jérôme Laigle

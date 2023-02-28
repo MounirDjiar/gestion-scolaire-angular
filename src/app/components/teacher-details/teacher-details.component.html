@@ -1,20 +1,22 @@
 <app-menu [schoolID]="schoolID"></app-menu>
 <br>
 <h3 class="text-center">Details du professeur {{teacher.lastName}}</h3>
-<li class="text-center"><a [routerLink]="['/schools', schoolID ,'teachers']">Liste des professeurs</a></li>
 <br>
+<li class="text-center"><a [routerLink]="['/schools', schoolID ,'teachers']">Liste des professeurs</a></li>
+<img src="assets/images/teacher-icon.png" alt="">
 <div id="details">
-  <h4 class="text-center">{{teacher.firstName}} {{teacher.lastName}}</h4>
+<!--  <h4 class="text-center">{{teacher.firstName}} {{teacher.lastName}}</h4>-->
   <ul>
     <li><b>Date de naissance :</b> {{teacher.dob}}</li>
+    <br>
     <li>
       <b>Matieres enseignées:</b>
       <ul *ngIf="teacher.lessons.length > 0">
         <li *ngFor="let lesson of teacher.lessons">{{lesson.name}}<li>
       </ul>
-      <ul *ngIf="teacher.lessons.length === 0">
-        Aucune matière enseignée
-      </ul>
+      <div *ngIf="teacher.lessons.length === 0">
+        <br>Aucune matière enseignée
+      </div>
     </li>
   </ul>
 </div>

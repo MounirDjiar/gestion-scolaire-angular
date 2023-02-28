@@ -1,4 +1,8 @@
 <app-menu [schoolID]="schoolID"></app-menu>
+<br>
+<h3 *ngIf="typePlanning === 'clazz'" class="text-center">Planning de : {{currentClazz?.name}}</h3>
+<h3 *ngIf="typePlanning === 'teacher'" class="text-center">Planning de : {{currentTeacher?.firstName}} {{currentTeacher?.lastName}}</h3>
+<br>
 
 <ng-template #content let-modal>
   <div class="modal-header">
@@ -57,17 +61,22 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="createEvent()">Create</button>
+    <button type="button" class="btn btn-success" (click)="createEvent(); modal.close('Save click')">Create</button>
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Annuler</button>
   </div>
 
+  <!--<pre>{{form.value |json}}</pre>-->
+
 </ng-template>
 
-<button (click)="open(content)" class="btn btn-outline-danger" style="margin-top: 15px">Creer schedule</button>
+<!-- <button (click)="open(content)" class="btn btn-outline-danger" style="margin-top: 15px">Creer schedule</button> -->
 
 <full-calendar #calendar
                [options]="calendarOptions"
-               (select)="handleSelect($event)">
+               (select)="handleSelect($event)"
+               (click)="open(content)"
+>
+
 </full-calendar>
 <br>
 <button (click)="generatePDF()">Exporter en PDF</button>

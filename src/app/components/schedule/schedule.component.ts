@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
 import {CalendarOptions, DateSelectArg} from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import {FullCalendarComponent} from "@fullcalendar/angular";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Teacher} from "../../../models/teacher.model";
 import {Lesson} from "../../../models/lesson.model";
 import {Clazz} from "../../../models/clazz.model";
@@ -20,6 +20,9 @@ import html2canvas from 'html2canvas';
 import {ClazzService} from "../../../services/clazz.service";
 import {ClassroomService} from "../../../services/classroom.service";
 import {LessonService} from "../../../services/lesson.service";
+import {TeacherListComponent} from "../teacher-list/teacher-list.component";
+import {TeacherService} from "../../../services/teacher.service";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-schedule',
@@ -33,14 +36,17 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
   @Input()
   typePlanning: string = '';
 
+  currentClazz: Clazz | undefined;
+  currentTeacher :Teacher | undefined;
+
   displayTeachers = false;
   displayLessons = false;
   displayClassrooms = false;
   displayClazzs = false;
 
   classroomID!: string
-  teacherID!:string
-  clazzID!: string
+  teacherID:string = ''
+  clazzID: string = ''
   lessonID!: string
 
   schoolID!:string;
@@ -49,7 +55,9 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
   clazzsList: Clazz[] = [];
   classroomsList: Classroom[] = [];
   schedules: Schedule[] = [];
+
   form!: FormGroup;
+
   currentModal: NgbModalRef | undefined;
 
   constructor(
@@ -59,8 +67,10 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     private clazzService: ClazzService,
     private classroomService: ClassroomService,
     private lessonService: LessonService,
+    private teacherService: TeacherService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    @Inject(LOCALE_ID) public locale: string
   ){
   }
 
@@ -69,6 +79,22 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     // Get school id from url
     this.schoolID = this.activatedRoute.snapshot.paramMap.get('schoolId') || '';
     this.typePlanning = this.activatedRoute.snapshot.paramMap.get('type') || '';
+
+    switch (this.typePlanning) {
+      case 'clazz':
+        this.clazzID = this.activatedRoute.snapshot.paramMap.get('id') || '';
+        this.clazzService.getOne(Number(this.clazzID)).subscribe(
+          clazz => this.currentClazz = clazz
+        );
+        break;
+      case 'teacher':
+        this.teacherID = this.activatedRoute.snapshot.paramMap.get('id') || '';
+        this.teacherService.getOne(Number(this.teacherID)).subscribe(
+          teacher => this.currentTeacher = teacher
+        );
+        break;
+    }
+
     this.form = this.formBuilder.group({
       day:'',
       startingHour:'',
@@ -77,17 +103,17 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
         id: ''
       }),
       teacher:  this.formBuilder.group({
-        id: ''
+        id: this.teacherID
       }),
       classroom:  this.formBuilder.group({
         id: ''
       }),
       clazz:  this.formBuilder.group({
-        id: ''
+        id: this.clazzID
       }),
-      school: {
+      school: this.formBuilder.group({
         id: this.schoolID
-      }
+      })
     });
 
     // Get the schedules list
@@ -104,30 +130,30 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     titleFormat: {  weekday: 'short' },
     hiddenDays: [0],
     allDaySlot: false,
-    slotDuration: '01:00:00',
-    slotLabelInterval: '01:00:00',
+    slotDuration: '01:00',
+    slotLabelInterval: '01:00',
     slotLabelFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
     eventTimeFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
     dayHeaders: true,
     height: 'auto',
-    slotMinTime: '08:00:00',
-    slotMaxTime: '19:00:00',
+    slotMinTime: '08:00',
+    slotMaxTime: '19:00',
     visibleRange: {
       start: '2023-02-27', // lundi
       end: '2023-03-05', // samedi
     },
-    dayHeaderFormat: { weekday: 'long' }, // afficher le jour en français
+    locale: 'fr',
+    dayHeaderFormat: { weekday: 'long' },
     headerToolbar: {
       left: '',
       center: '',
       right: ''
     },
+    select: this.handleSelect.bind(this),
     selectable: true,
     selectMirror: true,
     eventResizableFromStart: true,
-    select: this.handleSelect,
     plugins: [timeGridPlugin, interactionPlugin],
-
     events: [
     ],
     eventDrop: (info) => {
@@ -143,37 +169,53 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
   }
 
   handleSelect(selectInfo: any) {
-    const calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect(); // clear date selection
-  }
 
-  createEvent() {
 
-   switch (this.typePlanning) {
+    switch (this.typePlanning) {
       case 'clazz':
-        this.form.value.clazz.id = this.clazzID;
+        this.displayTeachers = false;
+        this.displayLessons = true;
+        this.displayClassrooms = false;
+        this.form.get('teacher')?.get('id')?.setValue('');
         break;
       case 'teacher':
-        this.form.value.teacher.id = this.teacherID;
+        this.displayTeachers = false;
+        this.displayLessons = false;
+        this.displayClassrooms = false;
+        this.displayClazzs = true;
+        this.form.get('clazz')?.get('id')?.setValue('');
         break;
     }
 
+    this.form.get('lesson')?.get('id')?.setValue('');
+    this.form.get('classroom')?.get('id')?.setValue('');
+
+
+    this.form.get('startingHour')?.setValue(selectInfo.start.getHours()+":"+selectInfo.start.getMinutes() +"0") ;
+    this.form.get('endingHour')?.setValue(selectInfo.end.getHours()+":"+selectInfo.end.getMinutes() +"0") ;
+    this.form.get('day')?.setValue(formatDate(selectInfo.start, "YYYY-MM-dd", this.locale));
+  }
+
+  createEvent() {
     this.scheduleService.add(this.form.value)
-      .subscribe(schedule =>
-        this.displaySchedule(schedule)
+      .subscribe(schedule => {
+          this.scheduleService.findById(schedule.id).subscribe(
+              resSchedule => {
+                this.displaySchedule(resSchedule)
+
+              }
+          );
+        }
       );
   }
 
   open(content: any) {
-    this.currentModal = this.modalService.open(content)
+    this.currentModal = this.modalService.open(content);
   }
 
   clazzSelected(target:any) {
 
     if(!this.teacherID){
-
-      console.log("PAS DE TEACHER JE SUIS DANS CLAZZ")
-
       // Get lessons list
       this.schoolService.findLessonsBySchoolId(Number(this.schoolID)).subscribe(
         lessons => {
@@ -181,9 +223,6 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
           this.displayLessons = true;
         });
     } else {
-
-      console.log("JE SUIS DANS TECHER")
-
       // Get lessons list by teacher
       this.scheduleService.findLessonsByTeacherID(Number(this.teacherID)).subscribe(
         lessons => {
@@ -208,6 +247,13 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
           });
         break;
       case 'teacher':
+        this.schoolService.findClassroomsBySchoolId(Number(this.schoolID)).subscribe(
+          classrooms => {
+            this.classroomsList = classrooms;
+            this.displayClassrooms = true;
+          });
+
+        /*
         this.scheduleService.findClassroomsBySchoolIdAndLessonId(
           Number(this.schoolID),
           Number(this.form.value.lesson.id),
@@ -216,6 +262,8 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
             this.classroomsList = classrooms;
             this.displayClassrooms = true;
           });
+         */
+
         break;
     }
   }
@@ -225,6 +273,14 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     switch (this.typePlanning) {
       case 'clazz':
         // Get classrooms list
+
+        this.schoolService.findClassroomsBySchoolId(Number(this.schoolID)).subscribe(
+          classrooms => {
+            this.classroomsList = classrooms;
+            this.displayClassrooms = true;
+          });
+
+        /*
         this.scheduleService.findClassroomsBySchoolIdAndLessonId(
           Number(this.schoolID),
           Number(this.form.value.lesson.id),
@@ -233,6 +289,7 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
             this.classroomsList = classrooms;
             this.displayClassrooms = true;
           })
+          */
         break;
       case 'teacher':
 
@@ -247,9 +304,6 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
 
         break;
     }
-
-
-
   }
 
   classroomSelected(target:any) {
@@ -261,9 +315,8 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
     switch (this.typePlanning) {
       case 'clazz':
         this.displayLessons = true;
-        // Get class id from url
-        this.clazzID = this.activatedRoute.snapshot.paramMap.get('id') || '';
         this.form.value.clazz.id = this.clazzID;
+
         this.clazzSelected(this.clazzID);
 
         // Get the schedules list of the current clazz
@@ -278,7 +331,7 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
       case 'teacher':
 
         // Get teacher id from url
-        this.teacherID = this.activatedRoute.snapshot.paramMap.get('id') || '';
+        //this.teacherID = this.activatedRoute.snapshot.paramMap.get('id') || '';
         this.form.value.teacher.id = this.teacherID;
         this.teacherSelected(this.teacherID);
 
@@ -296,16 +349,15 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
 
   private displaySchedules() {
 
-    const calendarApi = this.calendarComponent.getApi();
-
     for (let schedule of this.schedules) {
-
       // Display and format one schedule
-      calendarApi.addEvent(this.displaySchedule(schedule));
+      this.displaySchedule(schedule);
     }
   }
 
   private displaySchedule(schedule: Schedule): any {
+
+    const calendarApi = this.calendarComponent.getApi();
 
     const day = moment(schedule.day, 'YYYY-MM-DD');
     const startingHour = moment(schedule.startingHour, 'HH:mm');
@@ -325,7 +377,7 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
       millisecond: 0
     });
 
-    return {
+    calendarApi.addEvent( {
       title: this.getTitleOfSchedule(schedule),
       color: schedule.lesson.color,
       editable: true,
@@ -333,7 +385,7 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
       startEditable: true,
       start: startDate.toISOString(),
       end: endDate.toISOString()
-    }
+    });
   }
 
   private getTitleOfSchedule(schedule: Schedule) : string {
@@ -358,7 +410,6 @@ export class ScheduleComponent implements AfterViewInit , OnInit {
   generatePDF() {
     const doc = new jsPDF('l', 'mm', [297, 210]);
     const element = this.calendarComponent.getApi().el;
-
 
     // Convertir le calendrier en image
     html2canvas(element).then((canvas) => {

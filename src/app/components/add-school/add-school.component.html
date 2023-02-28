@@ -1,4 +1,3 @@
-<br>
 <h3 class="text-center">Ajouter un établissement</h3>
 <li class="text-center"><a [routerLink]="['/schools/']">Liste des établissement</a></li>
 
@@ -9,49 +8,59 @@
   <li *ngIf="formGroup.controls['schoolType'].errors?.['required']">Vous devez choisir un type d'établissement</li>
   <li *ngIf="formGroup.controls['phoneNumber'].errors?.['required']">Vous devez saisir un numéro de téléphone</li>
 </ul>
+<div class="wrapper">
 
-<br>
+  <form [formGroup]="formGroup" (ngSubmit)="submitFormAddSchool()">
+    <div>
+      <label for="name">Nom de l'établissement:</label>
+      <input type="text" id="name" formControlName="name">
+    </div>
 
-<form [formGroup]="formGroup" (ngSubmit)="submitFormAddSchool()">
-  <div>
-    <label for="name">Nom de l'établissement:</label>
-    <input type="text" id="name" formControlName="name">
-  </div>
+    <br>
 
-  <br>
+    <div>
+      <label for="address">Adresse:</label>
+      <input type="text" id="address" formControlName="address">
+    </div>
 
-  <div>
-    <label for="address">Adresse:</label>
-    <input type="text" id="address" formControlName="address">
-  </div>
+    <br>
 
-  <br>
+    <div>
+      <label>Veuillez selectionner le type de l'établissement</label>
+      <select id="schoolType" formControlName="schoolType">
+        <option *ngFor="let schoolType of schoolTypes" [value]="schoolType">{{schoolType}}</option>
+      </select>
+    </div>
 
-  <div>
-    <label>Veuillez selectionner le type de l'établissement</label>
-    <select id="schoolType" formControlName="schoolType">
-      <option *ngFor="let schoolType of schoolTypes" [value]="schoolType">{{schoolType}}</option>
-    </select>
-  </div>
+    <br>
 
-  <br>
+    <div>
+      <label for="phoneNumber">Numéro de téléphone:</label>
+      <input type="text" id="phoneNumber" formControlName="phoneNumber">
+    </div>
 
-  <div>
-    <label for="phoneNumber">Numéro de téléphone:</label>
-    <input type="text" id="phoneNumber" formControlName="phoneNumber">
-  </div>
+    <br>
 
-  <br>
+    <div class="form-group">
+      <label for="logo">Veuillez télécharger votre logo:</label>
+      <input type="file" name="logo" formControlName="logo" id="logo"(change)="onFileChanged($event)">
 
-  <div>
-    <label for="logo">Logo:</label>
-    <input type="text" id="logo" formControlName="logo">
-  </div>
-  <br>
-  <button type="submit">Ajouter</button>
-</form>
+      <!--    <input type="file" name="logo" formControlName="logo" id="logo" accept="image/png, image/jpeg">-->
+      <!--    <input type="button" (click)="imageUploadAction()" value="Upload Image" class="btn1">-->
+    </div>
 
-<pre>
-  {{formGroup.value|json}}
-  {{formGroup.valid|json}}
-</pre>
+
+    <!--  <div>-->
+    <!--    <label for="logo">Logo:</label>-->
+    <!--    <input type="text" id="logo" formControlName="logo">-->
+    <!--  </div>-->
+
+
+
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
+<!--<pre>-->
+<!--  {{formGroup.value|json}}-->
+<!--  {{formGroup.valid|json}}-->
+<!--</pre>-->
